@@ -1,3 +1,11 @@
+﻿/*** Color Variables ***/
+:root {
+    --bs-primary: #2B3035 !important; /* Màu đen đậm như trong hình */
+    --bs-secondary: #FFB524 !important; /* Giữ nguyên màu phụ */
+    --bs-white: #FFFFFF !important;
+    --bs-light: #F8F9FA !important;
+    --bs-dark: #212529 !important;
+}
 
 /*** Spinner Start ***/
 #spinner {
@@ -494,4 +502,28 @@
     line-height: 35px;
 }
 /*** Footer End ***/
+
+
+/* Override Bootstrap classes directly */
+.text-primary {
+    color: #2B3035 !important;
+}
+
+.bg-primary {
+    background-color: #2B3035 !important;
+}
+
+.btn-primary {
+    background-color: #2B3035 !important;
+    border-color: #2B3035 !important;
+}
+
+.btn-primary:hover {
+    background-color: #1a1d20 !important;
+    border-color: #1a1d20 !important;
+}
+
+.border-primary {
+    border-color: #2B3035 !important;
+}
 
