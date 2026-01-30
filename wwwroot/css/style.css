@@ -657,3 +657,94 @@
 /*** Hero Carousel Banner End ***/
 
 
+/*** Navbar Inline Search Start ***/
+.navbar-search-box {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+.navbar-search-box input.form-control {
+    border: 2px solid #e0e0e0;
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 25px 0 0 25px;
+    background: #ffffff;
+    color: var(--bs-dark);
+    transition: all 0.3s ease;
+}
+
+.navbar-search-box input.form-control:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.2rem rgba(43, 48, 53, 0.15);
+    outline: none;
+    background: #ffffff;
+}
+
+.navbar-search-box input.form-control::placeholder {
+    color: #999;
+}
+
+.navbar-search-box .btn {
+    border-radius: 0 25px 25px 0;
+    padding: 10px 20px;
+    border: 2px solid var(--bs-primary);
+    border-left: none;
+    background: var(--bs-primary);
+    transition: all 0.3s ease;
+}
+
+.navbar-search-box .btn:hover {
+    background: #1a1d20;
+    border-color: #1a1d20;
+    transform: scale(1.02);
+}
+
+.navbar-search-box .btn i {
+    font-size: 16px;
+}
+
+/* Responsive: Ẩn search box inline trên mobile */
+@media (max-width: 1199px) {
+    .navbar .d-xl-block {
+        display: none !important;
+    }
+}
+
+/* Style cho modal search trên mobile */
+#searchModal .input-group {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+#searchModal .input-group input {
+    border: 2px solid #e0e0e0;
+    padding: 20px 25px;
+    font-size: 16px;
+}
+
+#searchModal .input-group input:focus {
+    border-color: var(--bs-primary);
+    box-shadow: none;
+}
+
+#searchModal .input-group-text {
+    background: var(--bs-primary);
+    border: none;
+    padding: 20px 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#searchModal .input-group-text:hover {
+    background: #1a1d20;
+}
+
+#searchModal .input-group-text i {
+    color: white;
+    font-size: 18px;
+}
+/*** Navbar Inline Search End ***/
+
+
