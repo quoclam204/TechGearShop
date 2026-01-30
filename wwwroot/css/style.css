@@ -748,3 +748,119 @@
 /*** Navbar Inline Search End ***/
 
 
+/*** Navbar Icon Effects Start ***/
+.navbar .d-flex a.position-relative,
+.navbar .d-flex a.my-auto {
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.navbar .d-flex a.position-relative:hover,
+.navbar .d-flex a.my-auto:hover {
+    transform: scale(1.1);
+}
+
+.navbar .d-flex a.position-relative:active,
+.navbar .d-flex a.my-auto:active {
+    transform: scale(0.95);
+}
+
+/* Icon color transition */
+.navbar .d-flex a i {
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.navbar .d-flex a:hover i {
+    color: #1a1d20 !important;
+}
+
+/* Badge hover effect */
+.navbar .d-flex a.position-relative .position-absolute {
+    transition: all 0.3s ease;
+}
+
+.navbar .d-flex a.position-relative:hover .position-absolute {
+    transform: scale(1.15);
+    box-shadow: 0 2px 8px rgba(43, 48, 53, 0.3);
+}
+
+/* Click ripple effect */
+@keyframes ripple {
+    0% {
+        box-shadow: 0 0 0 0 rgba(43, 48, 53, 0.4);
+    }
+    100% {
+        box-shadow: 0 0 0 15px rgba(43, 48, 53, 0);
+    }
+}
+
+.navbar .d-flex a.position-relative:active,
+.navbar .d-flex a.my-auto:active {
+    animation: ripple 0.6s ease-out;
+}
+
+/* Mobile search button effect */
+.btn-search {
+    transition: all 0.3s ease;
+}
+
+.btn-search:hover {
+    transform: scale(1.1);
+    background-color: #f8f9fa !important;
+}
+
+.btn-search:active {
+    transform: scale(0.95);
+}
+/*** Navbar Icon Effects End ***/
+
+
+/*** Cart Badge Styling Start ***/
+.cart-badge {
+    background: linear-gradient(135deg, #ff416c, #ff4b2b) !important;
+    box-shadow: 0 2px 8px rgba(255, 65, 108, 0.4) !important;
+    font-weight: bold !important;
+    font-size: 12px !important;
+    animation: pulse-badge 2s ease-in-out infinite;
+    border: 2px solid #fff;
+}
+
+/* Pulse animation for cart badge */
+@keyframes pulse-badge {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 2px 8px rgba(255, 65, 108, 0.4);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 3px 12px rgba(255, 65, 108, 0.6);
+    }
+}
+
+/* Hover effect for cart badge */
+.navbar-icon-link:hover .cart-badge {
+    animation: bounce-badge 0.5s ease;
+}
+
+@keyframes bounce-badge {
+    0%, 100% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.15);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    75% {
+        transform: scale(1.1);
+    }
+}
+
+/* Make badge more visible with contrast */
+.cart-badge {
+    z-index: 10;
+}
+/*** Cart Badge Styling End ***/
+
+
