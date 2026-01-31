@@ -1,5 +1,10 @@
-﻿@{
+﻿@model IEnumerable<EcommerceMVC.ViewModels.HangHoaVM>
+@{
     ViewData["Title"] = "Home Page";
+}
+
+@section Styles {
+    <link href="~/css/product-card.css" rel="stylesheet" />
 }
 
 <!-- Carousel Banner Start -->
@@ -8,13 +13,17 @@
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselId" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
             <button type="button" data-bs-target="#carouselId" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselId" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
         <div class="carousel-inner" role="listbox">
             <div class="carousel-item active">
                 <img src="~/Hinh/HangHoa/home2.jpg" class="d-block w-100 carousel-banner-img" alt="First slide">
             </div>
             <div class="carousel-item">
-                <img src="~/Hinh/HangHoa/home4.jpg" class="d-block w-100 carousel-banner-img" alt="Second slide">
+                <img src="~/Hinh/HangHoa/home8.jpg" class="d-block w-100 carousel-banner-img" alt="Second slide">
+            </div>
+            <div class="carousel-item">
+                <img src="~/Hinh/HangHoa/home5.jpg" class="d-block w-100 carousel-banner-img" alt="Third slide">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
@@ -29,16 +38,48 @@
 </div>
 <!-- Carousel Banner End -->
 
-@* <!-- Hero Start -->
-<div class="container-fluid py-5 mb-5 hero-header">
-    <div class="container py-5">
-        <div class="row g-5 align-items-center">
-            <div class="col-md-12 col-lg-7">
-                <div class="position-relative mx-auto">
-                    @await Html.PartialAsync("_TimKiemPanel")
-                </div>
+<!-- Featured Products Section Start-->
+<div class="container-fluid py-4">
+    <div class="container">
+        <!-- Section Header -->
+        <div class="row mb-3 align-items-center">
+            <div class="col-md-6">
+                <h2 class="fw-bold mb-0">Sản phẩm nổi bật</h2>
             </div>
+            <div class="col-md-6 text-end">
+                <a asp-controller="HangHoa" asp-action="Index" class="btn btn-outline-primary rounded-pill px-4">
+                    Xem tất cả <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="product-grid">
+            @foreach (var item in Model)
+            {
+                <div class="product-card">
+                    <a asp-action="Detail" asp-controller="HangHoa" asp-route-id="@item.MaHh" class="text-decoration-none">
+                        <div class="product-image-wrapper">
+                            <img src="~/Hinh/HangHoa/@item.Hinh" class="product-image" alt="@item.TenHH">
+                            <span class="product-badge">@item.TenLoai</span>
+                        </div>
+                        <div class="product-content">
+                            <h6 class="product-title">@item.TenHH</h6>
+                            <p class="product-description">@item.MoTaNgan</p>
+                            <div class="product-price-wrapper">
+                                <span class="product-price">₫@item.DonGia.000</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="product-actions">
+                        <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@item.MaHh" 
+                           class="btn-add-cart">
+                            <i class="fa fa-shopping-bag"></i> Thêm vào giỏ
+                        </a>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </div>
-<!-- Hero End --> *@
+<!-- Featured Products Section End-->
