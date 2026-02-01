@@ -1,6 +1,6 @@
 ﻿/* ============================================
    COMPACT PRODUCT CARD STYLES
-   Similar to CellphoneS.com.vn layout
+   Black & White Theme for TechGearShop
    ============================================ */
 
 /* Product Grid Container */
@@ -14,7 +14,7 @@
 /* Product Card Base */
 .product-card {
     background: #fff;
-    border: 1px solid #e5e5e5;
+    border: 1px solid #e0e0e0;
     border-radius: 8px;
     overflow: hidden;
     transition: all 0.3s ease;
@@ -24,9 +24,9 @@
 }
 
 .product-card:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     transform: translateY(-4px);
-    border-color: #81c408;
+    border-color: #333;
 }
 
 /* Product Image Section */
@@ -34,7 +34,7 @@
     position: relative;
     width: 100%;
     padding-top: 100%; /* 1:1 Aspect Ratio */
-    background: #fafafa;
+    background: #f8f8f8;
     overflow: hidden;
 }
 
@@ -53,28 +53,28 @@
     transform: scale(1.08);
 }
 
-/* Product Badge */
+/* Product Badge - Black & White Theme */
 .product-badge {
     position: absolute;
     top: 8px;
     left: 8px;
-    background: linear-gradient(135deg, #81c408 0%, #6fa307 100%);
+    background: linear-gradient(135deg, #333 0%, #000 100%);
     color: #fff;
     padding: 4px 10px;
     border-radius: 4px;
     font-size: 0.7rem;
     font-weight: 600;
     text-transform: uppercase;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     z-index: 2;
 }
 
-/* Discount Badge (Optional) */
+/* Discount Badge */
 .product-discount {
     position: absolute;
     top: 8px;
     right: 8px;
-    background: #d70018;
+    background: #000;
     color: #fff;
     padding: 4px 8px;
     border-radius: 4px;
@@ -93,7 +93,7 @@
 /* Product Title */
 .product-title {
     font-size: 0.875rem;
-    color: #333;
+    color: #1a1a1a;
     margin-bottom: 8px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -106,7 +106,8 @@
 }
 
 .product-title:hover {
-    color: #81c408;
+    color: #000;
+    font-weight: 600;
 }
 
 /* Product Description (Optional - Hidden on mobile) */
@@ -128,7 +129,7 @@
 }
 
 .product-price {
-    color: #d70018;
+    color: #000;
     font-size: 1rem;
     font-weight: 700;
     display: block;
@@ -149,8 +150,8 @@
 .btn-add-cart {
     width: 100%;
     background: #fff;
-    border: 1.5px solid #81c408;
-    color: #81c408;
+    border: 1.5px solid #333;
+    color: #333;
     padding: 8px 12px;
     border-radius: 6px;
     font-size: 0.8rem;
@@ -162,9 +163,9 @@
 }
 
 .btn-add-cart:hover {
-    background: #81c408;
+    background: #333;
     color: #fff;
-    border-color: #81c408;
+    border-color: #333;
     transform: scale(1.02);
 }
 
@@ -172,7 +173,7 @@
     margin-right: 4px;
 }
 
-/* Rating Stars (Optional) */
+/* Rating Stars */
 .product-rating {
     display: flex;
     align-items: center;
@@ -182,13 +183,41 @@
 }
 
 .product-rating i {
-    color: #ffc107;
+    color: #666;
 }
 
 .product-rating-count {
     color: #999;
     font-size: 0.7rem;
     margin-left: 4px;
+}
+
+/* ============================================
+   VIEW ALL BUTTON - Black & White Theme
+   ============================================ */
+
+.btn-outline-primary.rounded-pill {
+    background: #fff !important;
+    border: 2px solid #333 !important;
+    color: #333 !important;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary.rounded-pill:hover {
+    background: #333 !important;
+    color: #fff !important;
+    border-color: #333 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-outline-primary.rounded-pill i {
+    transition: transform 0.3s ease;
+}
+
+.btn-outline-primary.rounded-pill:hover i {
+    transform: translateX(4px);
 }
 
 /* ============================================
@@ -287,8 +316,8 @@
 
 /* Featured Product Highlight */
 .product-card.featured {
-    border: 2px solid #81c408;
-    background: linear-gradient(to bottom, #f9fff4 0%, #fff 50%);
+    border: 2px solid #000;
+    background: linear-gradient(to bottom, #f5f5f5 0%, #fff 50%);
 }
 
 /* Out of Stock */
@@ -303,7 +332,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.9);
     color: #fff;
     padding: 8px 16px;
     border-radius: 4px;
@@ -316,7 +345,7 @@
     position: absolute;
     top: 8px;
     right: 8px;
-    background: #ff6b00;
+    background: #000;
     color: #fff;
     padding: 4px 8px;
     border-radius: 4px;
@@ -326,7 +355,7 @@
 
 /* Product Loading Skeleton */
 .product-card-skeleton {
-    background: #f0f0f0;
+    background: #f5f5f5;
     animation: pulse 1.5s ease-in-out infinite;
 }
 
@@ -337,4 +366,28 @@
     50% {
         opacity: 0.5;
     }
+}
+
+/* Sale Badge - Black & White */
+.product-sale-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #fff;
+    color: #000;
+    border: 2px solid #000;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: 700;
+}
+
+/* Premium Product Style */
+.product-card.premium {
+    border: 2px solid #000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-card.premium .product-badge {
+    background: linear-gradient(135deg, #000 0%, #333 100%);
 }
