@@ -31,7 +31,7 @@ namespace EcommerceMVC.Controllers
 			// Lấy 8 sản phẩm mới nhất hoặc nổi bật
 			var hangHoas = db.HangHoas
 				.OrderByDescending(p => p.NgaySx) // Sắp xếp theo ngày sản xuất mới nhất
-				.Take(8) // Lấy 8 sản phẩm
+				.Take(30) // Lấy 8 sản phẩm
 				.Select(p => new HangHoaVM
 				{
 					MaHh = p.MaHh,
