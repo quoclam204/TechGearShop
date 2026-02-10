@@ -714,7 +714,7 @@
             .hero-carousel .carousel-indicators button.active {
                 width: 35px;
                 border-radius: 10px;
-                background-color: var(--bs-secondary);
+                background-color: #2B3035; /* Màu đen đậm giống primary */
             }
 
 /* ===== RESPONSIVE ===== */

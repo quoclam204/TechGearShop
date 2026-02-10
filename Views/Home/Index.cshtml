@@ -47,9 +47,24 @@
                 <h2 class="fw-bold mb-0">Sản phẩm nổi bật</h2>
             </div>
             <div class="col-md-6 text-end">
-                <a asp-controller="HangHoa" asp-action="Index" class="btn btn-outline-primary rounded-pill px-4">
-                    Xem tất cả <i class="fas fa-arrow-right ms-2"></i>
-                </a>
+                <div class="dropdown d-inline-block">
+                    <button class="btn btn-outline-primary rounded-pill px-4 dropdown-toggle" 
+                            type="button" 
+                            id="filterDropdown" 
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false">
+                        <i class="fas fa-filter me-2"></i>Lọc theo loại
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="filterDropdown">
+                        <li>
+                            <a class="dropdown-item" asp-controller="HangHoa" asp-action="Index">
+                                <i class="fas fa-th me-2"></i>Tất cả sản phẩm
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        @await Component.InvokeAsync("MenuLoai")
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -58,6 +73,7 @@
             @foreach (var item in Model)
             {
                 <div class="product-card">
+                    @* click 1 sp sang trang chi tiết sản phẩm *@
                     <a asp-action="Detail" asp-controller="HangHoa" asp-route-id="@item.MaHh" class="text-decoration-none">
                         <div class="product-image-wrapper">
                             <img src="~/Hinh/HangHoa/@item.Hinh" class="product-image" alt="@item.TenHH">
@@ -67,7 +83,9 @@
                             <h6 class="product-title">@item.TenHH</h6>
                             <p class="product-description">@item.MoTaNgan</p>
                             <div class="product-price-wrapper">
-                                <span class="product-price">₫@item.DonGia.000</span>
+                                <span class="product-price">
+                                    @item.DonGia.ToString("N0") ₫
+                                </span>
                             </div>
                         </div>
                     </a>
