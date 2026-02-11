@@ -26,24 +26,26 @@ namespace EcommerceMVC.Controllers
 			_mapper = mapper;
 		}
 
-		public IActionResult Index()
+		public IActionResult Index(int? loai)
 		{
-			// Lấy 8 sản phẩm mới nhất hoặc nổi bật
-			var hangHoas = db.HangHoas
-				.OrderByDescending(p => p.NgaySx) // Sắp xếp theo ngày sản xuất mới nhất
-				.Take(30) // Lấy 8 sản phẩm
-				.Select(p => new HangHoaVM
-				{
-					MaHh = p.MaHh,
-					TenHH = p.TenHh,
-					DonGia = p.DonGia ?? 0,
-					Hinh = p.Hinh ?? "",
-					MoTaNgan = p.MoTaDonVi ?? "",
-					TenLoai = p.MaLoaiNavigation.TenLoai
-				})
-				.ToList();
+			var hangHoas = db.HangHoas.AsQueryable();
 
-			return View(hangHoas);
+			if (loai.HasValue)
+			{
+				hangHoas = hangHoas.Where(p => p.MaLoai == loai.Value);
+			}
+
+			var result = hangHoas.Select(p => new HangHoaVM
+			{
+				MaHh = p.MaHh,
+				TenHH = p.TenHh,
+				DonGia = p.DonGia ?? 0,
+				Hinh = p.Hinh ?? "",
+				MoTaNgan = p.MoTaDonVi ?? "",
+				TenLoai = p.MaLoaiNavigation.TenLoai
+			}).ToList();
+
+			return View(result);
 		}
 		
 		public IActionResult PageNotFound()
@@ -193,6 +195,30 @@ namespace EcommerceMVC.Controllers
 		{
 			await HttpContext.SignOutAsync();
 			return Redirect("/");
+		}
+
+		// Action mới cho AJAX
+		[HttpGet]
+		public IActionResult FilterProducts(int? loai)
+		{
+			var hangHoas = db.HangHoas.AsQueryable();
+
+			if (loai.HasValue)
+			{
+				hangHoas = hangHoas.Where(p => p.MaLoai == loai.Value);
+			}
+
+			var result = hangHoas.Select(p => new HangHoaVM
+			{
+				MaHh = p.MaHh,
+				TenHH = p.TenHh,
+				DonGia = p.DonGia ?? 0,
+				Hinh = p.Hinh ?? "",
+				MoTaNgan = p.MoTaDonVi ?? "",
+				TenLoai = p.MaLoaiNavigation.TenLoai
+			}).ToList();
+
+			return PartialView("_ProductGrid", result);
 		}
 	}
 }

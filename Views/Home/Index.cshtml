@@ -57,12 +57,11 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="filterDropdown">
                         <li>
-                            <a class="dropdown-item" asp-controller="HangHoa" asp-action="Index">
+                            <a class="dropdown-item filter-link" href="javascript:void(0)" data-loai="">
                                 <i class="fas fa-th me-2"></i>Tất cả sản phẩm
                             </a>
                         </li>
                         <li><hr class="dropdown-divider"></li>
-                        @* Lấy ds loại sản phẩm từ database *@
                         @await Component.InvokeAsync("MenuLoai")
                     </ul>
                 </div>
@@ -70,35 +69,50 @@
         </div>
 
         <!-- Products Grid -->
-        <div class="product-grid">
-            @foreach (var item in Model)
-            {
-                <div class="product-card">
-                    @* click 1 sp sang trang chi tiết sản phẩm *@
-                    <a asp-action="Detail" asp-controller="HangHoa" asp-route-id="@item.MaHh" class="text-decoration-none">
-                        <div class="product-image-wrapper">
-                            <img src="~/Hinh/HangHoa/@item.Hinh" class="product-image" alt="@item.TenHH">
-                            <span class="product-badge">@item.TenLoai</span>
-                        </div>
-                        <div class="product-content">
-                            <h6 class="product-title">@item.TenHH</h6>
-                            <p class="product-description">@item.MoTaNgan</p>
-                            <div class="product-price-wrapper">
-                                <span class="product-price">
-                                    @item.DonGia.ToString("N0") ₫
-                                </span>
-                            </div>
-                        </div>
-                    </a>
-                    <div class="product-actions">
-                        <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@item.MaHh" 
-                           class="btn-add-cart">
-                            <i class="fa fa-shopping-bag"></i> Thêm vào giỏ
-                        </a>
-                    </div>
-                </div>
-            }
+        <div class="product-grid" id="productGrid">
+            @await Html.PartialAsync("_ProductGrid", Model)
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="loadingSpinner" class="text-center py-5" style="display: none;">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Đang tải...</span>
+            </div>
         </div>
     </div>
 </div>
 <!-- Featured Products Section End-->
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Xử lý click vào menu lọc
+            $('.filter-link').on('click', function (e) {
+                e.preventDefault();
+                
+                var loai = $(this).data('loai');
+                
+                // Hiển thị loading
+                $('#productGrid').hide();
+                $('#loadingSpinner').show();
+                
+                // Gọi AJAX
+                $.ajax({
+                    url: '@Url.Action("FilterProducts", "Home")',
+                    type: 'GET',
+                    data: { loai: loai },
+                    success: function (result) {
+                        $('#productGrid').html(result);
+                        $('#productGrid').show();
+                        $('#loadingSpinner').hide();
+                    },
+                    error: function () {
+                        alert('Có lỗi xảy ra khi tải sản phẩm!');
+                        $('#productGrid').show();
+                        $('#loadingSpinner').hide();
+                    }
+                });
+            });
+        });
+    </script>
+}
