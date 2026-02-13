@@ -992,3 +992,49 @@
     transform: scale(1.05);
     transition: all 0.3s ease;
 }
+
+/*** Dropdown Menu Items - Cải thiện độ hiển thị ***/
+.dropdown-item {
+    color: #212529 !important; /* Chữ tối cho độ tương phản tốt hơn */
+    padding: 12px 20px;
+    transition: all 0.3s ease;
+}
+
+.dropdown-item:hover {
+    background: #e9ecef !important; /* Xám nhạt khi hover */
+    color: var(--bs-primary) !important;
+}
+
+.dropdown-item i {
+    color: var(--bs-primary) !important;
+}
+
+/* Làm chữ danh mục rõ hơn */
+.filter-link {
+    font-weight: 500;
+    font-size: 15px;
+}
+
+/* Cải thiện độ tương phản của badge */
+.dropdown-item .badge.bg-secondary {
+    background-color: var(--bs-primary) !important; /* Dùng màu primary thay vì gray */
+    color: #fff !important;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 12px;
+}
+
+.dropdown-item:hover .badge {
+    background-color: #4a4a4a !important;
+    transform: scale(1.05);
+}
+
+/* Nền dropdown đậm hơn */
+.navbar .nav-item:hover .dropdown-menu {
+    transform: rotateX(0deg);
+    visibility: visible;
+    background: #e9ecef !important; /* Xám nhạt thay vì trắng */
+    border-radius: 10px !important;
+    transition: .5s;
+    opacity: 1;
+}

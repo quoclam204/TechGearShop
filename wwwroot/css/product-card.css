@@ -45,7 +45,7 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
-    padding: 12px;
+    padding: 10px; /* Giảm từ 12px */
     transition: transform 0.3s ease;
 }
 
@@ -56,13 +56,13 @@
 /* Product Badge - Black & White Theme */
 .product-badge {
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 8px; /* Giảm từ 10px */
+    left: 8px; /* Giảm từ 10px */
     background: linear-gradient(135deg, #1e3c72, #2a5298);
     color: #fff;
-    padding: 5px 12px;
-    border-radius: 14px;
-    font-size: 0.7rem;
+    padding: 4px 10px; /* Giảm từ 5px 12px */
+    border-radius: 12px; /* Giảm từ 14px */
+    font-size: 0.65rem; /* Giảm từ 0.7rem */
     font-weight: 600;
     letter-spacing: 0.3px;
     text-transform: capitalize;
@@ -100,25 +100,25 @@
     font-weight: 700;
 }
 
-/* Product Content */
+/* Product Content - Compact Version */
 .product-content {
-    padding: 12px;
+    padding: 10px; /* Giảm từ 12px xuống 10px */
     flex: 1;
     display: flex;
     flex-direction: column;
 }
 
-/* Product Title */
+/* Product Title - More Compact */
 .product-title {
-    font-size: 0.875rem;
+    font-size: 0.85rem; /* Giảm từ 0.875rem */
     color: #1a1a1a;
-    margin-bottom: 8px;
+    margin-bottom: 6px; /* Giảm từ 8px */
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    line-height: 1.4;
-    min-height: 38px;
+    line-height: 1.3; /* Giảm từ 1.4 */
+    min-height: 34px; /* Giảm từ 38px */
     font-weight: 500;
     text-decoration: none;
 }
@@ -128,27 +128,20 @@
     font-weight: 600;
 }
 
-/* Product Description (Optional - Hidden on mobile) */
+/* Product Description - Hidden for Compact Look */
 .product-description {
-    font-size: 0.75rem;
-    color: #666;
-    margin-bottom: 8px;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    line-height: 1.3;
+    display: none; /* Ẩn mô tả để gọn hơn */
 }
 
-/* Product Price Section */
+/* Product Price Section - Compact */
 .product-price-wrapper {
     margin-top: auto;
-    margin-bottom: 8px;
+    margin-bottom: 6px; /* Giảm từ 8px */
 }
 
 .product-price {
     color: #000;
-    font-size: 1rem;
+    font-size: 0.95rem; /* Giảm từ 1rem */
     font-weight: 700;
     display: block;
 }
@@ -160,9 +153,9 @@
     margin-left: 6px;
 }
 
-/* Product Actions */
+/* Product Actions - Compact */
 .product-actions {
-    padding: 0 12px 12px;
+    padding: 0 10px 10px; /* Giảm từ 12px */
 }
 
 .btn-add-cart {
@@ -170,9 +163,9 @@
     background: #fff;
     border: 1.5px solid #333;
     color: #333;
-    padding: 8px 12px;
+    padding: 7px 10px; /* Giảm từ 8px 12px */
     border-radius: 6px;
-    font-size: 0.8rem;
+    font-size: 0.75rem; /* Giảm từ 0.8rem */
     font-weight: 600;
     transition: all 0.3s ease;
     text-align: center;
