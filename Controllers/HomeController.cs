@@ -26,7 +26,8 @@ namespace EcommerceMVC.Controllers
 			_mapper = mapper;
 		}
 
-		public IActionResult Index(int? loai)
+        // Load trang lần đầu
+        public IActionResult Index(int? loai)
 		{
 			var hangHoas = db.HangHoas.AsQueryable();
 
@@ -197,7 +198,7 @@ namespace EcommerceMVC.Controllers
 			return Redirect("/");
 		}
 
-		// Action mới cho AJAX
+		// Action mới cho AJAX (Lọc sản phẩm không reload trang (AJAX)
 		[HttpGet]
 		public IActionResult FilterProducts(int? loai)
 		{

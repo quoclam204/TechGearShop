@@ -221,6 +221,44 @@
 }
 
 /* ============================================
+   REMOVE BUTTON FOCUS OUTLINE
+   ============================================ */
+
+/* Bỏ viền xanh khi focus/click vào button */
+.btn:focus,
+.btn:active,
+.btn.focus,
+.btn.active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Đặc biệt cho dropdown button */
+#filterDropdown:focus,
+#filterDropdown:active,
+.dropdown-toggle:focus,
+.dropdown-toggle:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Giữ lại hiệu ứng hover nhưng bỏ focus outline */
+.btn-outline-primary:hover {
+    background: #333 !important;
+    color: #fff !important;
+    border-color: #333 !important;
+}
+
+.btn-outline-primary:focus,
+.btn-outline-primary:active {
+    outline: none !important;
+    box-shadow: none !important;
+    background: #fff !important;
+    color: #333 !important;
+    border-color: #333 !important;
+}
+
+/* ============================================
    RESPONSIVE BREAKPOINTS
    ============================================ */
 
@@ -390,4 +428,10 @@
 
 .product-card.premium .product-badge {
     background: linear-gradient(135deg, #000 0%, #333 100%);
+}
+
+/* Loading Spinner */
+#loadingSpinner .spinner-border {
+    width: 3rem;
+    height: 3rem;
 }
