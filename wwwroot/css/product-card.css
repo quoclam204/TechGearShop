@@ -56,18 +56,36 @@
 /* Product Badge - Black & White Theme */
 .product-badge {
     position: absolute;
-    top: 8px;
-    left: 8px;
-    background: linear-gradient(135deg, #333 0%, #000 100%);
+    top: 10px;
+    left: 10px;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
     color: #fff;
-    padding: 4px 10px;
-    border-radius: 4px;
+    padding: 5px 12px;
+    border-radius: 14px;
     font-size: 0.7rem;
     font-weight: 600;
-    text-transform: uppercase;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    letter-spacing: 0.3px;
+    text-transform: capitalize;
+    box-shadow: 0 4px 10px rgba(30,60,114,0.4);
     z-index: 2;
 }
+/*.product-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: linear-gradient(135deg, #2f5fd0, #4f7fe6);
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 14px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-transform: capitalize;
+    box-shadow: 0 4px 10px rgba(47,95,208,0.35);
+    z-index: 2;
+}*/
+
+
 
 /* Discount Badge */
 .product-discount {

@@ -1,7 +1,7 @@
 ﻿/*** Color Variables ***/
 :root {
-    --bs-primary: #2B3035 !important; /* Màu đen đậm như trong hình */
-    --bs-secondary: #FFB524 !important; /* Giữ nguyên màu phụ */
+    --bs-primary: #2B3035 !important; /* Màu đen đậm */
+    --bs-secondary: #4a4a4a !important; /* Xám charcoal - Pure B&W */
     --bs-white: #FFFFFF !important;
     --bs-light: #F8F9FA !important;
     --bs-dark: #212529 !important;
@@ -34,7 +34,7 @@
     transition: 0.5s;
     z-index: 99;
 }
-/*** Spinner End ***/
+ /*** Spinner End ***/
 
 
 /*** Button Start ***/
@@ -205,7 +205,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 25px;
-    background: linear-gradient(rgba(255, 181, 36, 0.7), rgba(255, 181, 36, 0.7));
+    background: linear-gradient(rgba(30, 60, 114, 0.7), rgba(30, 60, 114, 0.7)); /* Xanh dương đậm */
 }
 
 .carousel-control-next,
@@ -967,6 +967,28 @@
     text-decoration: underline !important;
 }
 /*** Simple Footer Links End ***/
+/* ============================================
+   FIX REMAINING COLORS - UPDATED FOR GRAY THEME
+   ============================================ */
 
+/* 1. Carousel item link background */
+.carousel-item a {
+    background: linear-gradient(rgba(74, 74, 74, 0.7), rgba(74, 74, 74, 0.7)) !important;
+}
 
+/* 2. Badge secondary color override */
+.badge.bg-secondary {
+    background-color: #4a4a4a !important;
+    color: #fff !important;
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-weight: 600;
+}
 
+/* 3. Dropdown item badge hover effect */
+.dropdown-item:hover .badge {
+    background-color: #5a5a5a !important;
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+}
