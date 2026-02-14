@@ -1038,3 +1038,17 @@
     transition: .5s;
     opacity: 1;
 }
+
+/* Filter Button Icon Animation */
+#filterDropdown i {
+    transition: transform 0.3s ease;
+}
+
+#filterDropdown:hover i {
+    transform: rotate(90deg);
+}
+
+/* Alternative: Scale effect */
+#filterDropdown:hover i.fa-sliders-h {
+    transform: scale(1.2);
+}
