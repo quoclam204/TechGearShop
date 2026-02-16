@@ -11,35 +11,47 @@
     };
     spinner(0);
 
-
-    // Fixed Navbar
+    
+    // Combined scroll handler - Tối ưu hiệu suất
     $(window).scroll(function () {
-        if ($(window).width() < 992) {
-            if ($(this).scrollTop() > 55) {
+        var scrollPos = $(this).scrollTop();
+        var windowWidth = $(window).width();
+        
+        // Fixed Navbar
+        if (windowWidth < 992) {
+            if (scrollPos > 55) {
                 $('.fixed-top').addClass('shadow');
             } else {
                 $('.fixed-top').removeClass('shadow');
             }
         } else {
-            if ($(this).scrollTop() > 55) {
+            if (scrollPos > 55) {
                 $('.fixed-top').addClass('shadow').css('top', -55);
             } else {
                 $('.fixed-top').removeClass('shadow').css('top', 0);
             }
-        } 
+        }
+        
+        // Back to top button
+        if (scrollPos > 300) {
+            $('.back-to-top').fadeIn(200);
+        } else {
+            $('.back-to-top').fadeOut(200);
+        }
     });
-    
-    
-   // Back to top button
-   $(window).scroll(function () {
-    if ($(this).scrollTop() > 300) {
-        $('.back-to-top').fadeIn('slow');
-    } else {
-        $('.back-to-top').fadeOut('slow');
-    }
-    });
-    $('.back-to-top').click(function () {
-        $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
+
+    // Back to top - FORCE IMMEDIATE SCROLL
+    $(document).on('click', '.back-to-top', function (e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        
+        // Dừng tất cả animation đang chạy
+        $('html, body').stop(true, false);
+        
+        // Scroll ngay lập tức
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0; // Cho Safari
+        
         return false;
     });
 
@@ -148,4 +160,21 @@
     });
 
 })(jQuery);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
