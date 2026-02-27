@@ -1,0 +1,52 @@
+﻿@model IEnumerable<EcommerceMVC.ViewModels.HangHoaVM>
+@{
+    ViewData["Title"] = "Kết quả tìm kiếm";
+    Layout = "_DanhSachHangHoa";
+}
+
+@section BreadCum {
+    <div class="container-fluid page-header py-5">
+        <h1 class="text-center text-white display-6">Kết quả tìm kiếm</h1>
+        <ol class="breadcrumb justify-content-center mb-0">
+            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a asp-controller="HangHoa" asp-action="Index">Cửa hàng</a></li>
+            <li class="breadcrumb-item active text-white">Tìm kiếm</li>
+        </ol>
+    </div>
+}
+
+<div class="col-12 mb-4">
+    @if (!string.IsNullOrWhiteSpace(ViewBag.SearchQuery))
+    {
+        <div class="alert alert-info d-flex align-items-center">
+            <i class="fas fa-search me-3 fa-2x"></i>
+            <div>
+                <strong>Tìm thấy @ViewBag.TotalResults sản phẩm</strong> cho từ khóa: 
+                <span class="badge bg-primary">@ViewBag.SearchQuery</span>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            Vui lòng nhập từ khóa để tìm kiếm
+        </div>
+    }
+</div>
+
+@if (Model.Any())
+{
+    @await Html.PartialAsync("ProductItem", Model)
+}
+else
+{
+    <div class="col-12 text-center py-5">
+        <i class="fas fa-box-open fa-4x text-muted mb-4"></i>
+        <h4>Không tìm thấy sản phẩm phù hợp</h4>
+        <p class="text-muted">Hãy thử tìm kiếm với từ khóa khác hoặc xem tất cả sản phẩm</p>
+        <a asp-controller="HangHoa" asp-action="Index" class="btn btn-primary rounded-pill px-4 py-2 mt-3">
+            <i class="fas fa-shopping-bag me-2"></i>Xem tất cả sản phẩm
+        </a>
+    </div>
+}

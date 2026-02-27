@@ -57,9 +57,9 @@
             <h1 class="text-primary display-6">TechGearShop</h1>
         </a>
         
-        <!-- Inline Search Box - Hiển thị trên desktop -->
+        <!-- Inline Search Box - Desktop -->
         <div class="d-none d-xl-block ms-4 flex-grow-1" style="max-width: 400px;">
-            <form asp-action="Search" asp-controller="HangHoa" method="get" class="d-flex">
+            <form asp-action="Index" asp-controller="Search" method="get" class="d-flex">
                 <div class="input-group navbar-search-box">
                     <input type="search" 
                            name="query" 
@@ -167,12 +167,12 @@
 	@RenderSection("Scripts", required: false)
 
 	<script>
-		$(document).ready(function () {
-			$("#seachButton").click(function () {
-				let url = `/HangHoa/Search?query=` + $("#searchText").val();
-				window.location.href = url;
-			});
-		});
-	</script>
+    $(document).ready(function () {
+        $("#seachButton").click(function () {
+            let url = `/Search?query=` + $("#searchText").val(); // ← Đổi từ /HangHoa/Search
+            window.location.href = url;
+        });
+    });
+</script>
 </body>
 </html>
