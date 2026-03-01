@@ -22,25 +22,26 @@
     <!-- SIDEBAR BÊN TRÁI (col-lg-3) -->
     <div class="col-lg-3">
         <div class="row g-4">
-            <!-- 1. Menu Loại sản phẩm -->
+            <!-- 4. Banner quảng cáo -->
+            <div class="col-lg-12">
+                <div class="position-relative">
+                    <img src="~/img/banner2.png" class="img-fluid w-100 rounded" alt="Đặc biệt">
+                    @* <div class="position-absolute" style="top: 50%; right: 10px; transform: translateY(-50%);">
+                        <h3 class="text-secondary fw-bold">Đặc <br> Biệt</h3>
+                    </div> *@
+                </div>
+            </div>
+
+            @* <!-- 1. Menu Loại sản phẩm -->
             <div class="col-lg-12">
                 @await Component.InvokeAsync("MenuLoai")
-            </div>
+            </div> *@
 
             <!-- 2. Sản phẩm nổi bật -->
             <div class="col-lg-12">
                 @await Component.InvokeAsync("FeaturedProducts", new { count = 5 })
             </div>
 
-            <!-- 4. Banner quảng cáo -->
-            <div class="col-lg-12">
-                <div class="position-relative">
-                    <img src="~/img/hong-treo-gio-dalavi-dalat.jpg" class="img-fluid w-100 rounded" alt="Đặc biệt">
-                    <div class="position-absolute" style="top: 50%; right: 10px; transform: translateY(-50%);">
-                        <h3 class="text-secondary fw-bold">Đặc <br> Biệt</h3>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
