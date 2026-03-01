@@ -1,0 +1,14 @@
+﻿@{
+    Layout="_LayoutCustomer";
+}
+
+@RenderSection("Styles", required: false)
+
+@RenderSection("BreadCum", required: false)
+
+<!-- Layout giống trang Home - Full width -->
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        @RenderBody()
+    </div>
+</div>
