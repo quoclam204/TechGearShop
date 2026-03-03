@@ -264,57 +264,29 @@
 /*banner*/
 .page-header {
     position: relative;
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(../img/bannerweb1.png);
+    background: url(../img/bannerweb2.png); /* Xóa linear-gradient */
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
-    margin-top: 180px; /* Thêm margin để tránh navbar */
-    min-height: 200px; /* Đảm bảo banner có chiều cao tối thiểu */
+    margin-top: 180px;
+    min-height: 200px;
 }
 
-@media (min-width: 992px) {
-    .hero-header,
-    .page-header {
-        margin-top: 180px !important; /* Tăng margin cho desktop */
-    }
-}
-
+/* Responsive cho tablet */
 @media (max-width: 992px) {
-    .hero-header,
     .page-header {
-        margin-top: 140px !important; /* Margin nhỏ hơn cho tablet/mobile */
+        margin-top: 140px;
     }
 }
 
+/* Responsive cho mobile */
 @media (max-width: 768px) {
     .page-header {
-        margin-top: 120px !important; /* Margin nhỏ hơn cho mobile */
+        margin-top: 120px;
         min-height: 150px;
     }
 }
 
-.page-header {
-    position: relative;
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(../img/bannerweb1.png);
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-@media (min-width: 992px) {
-    .hero-header,
-    .page-header {
-        margin-top: 0 !important; /* Xóa margin-top để carousel nằm sát header */
-    }
-}
-
-@media (max-width: 992px) {
-    .hero-header,
-    .page-header {
-        margin-top: 0 !important; /* Xóa margin-top để carousel nằm sát header */
-    }
-}
-/*** Hero Header end ***/
 
 
 /*** featurs Start ***/
@@ -493,6 +465,32 @@
 /*** Banner Section Start ***/
 .banner .banner-btn:hover {
     background: var(--bs-primary);
+}
+
+/* Fix banner bị che bởi fixed navbar */
+.page-header {
+    position: relative;
+    background: url(../img/bannerweb2.png); /* Xóa linear-gradient */
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: 180px;
+    min-height: 200px;
+}
+
+/* Responsive cho tablet */
+@media (max-width: 992px) {
+    .page-header {
+        margin-top: 140px;
+    }
+}
+
+/* Responsive cho mobile */
+@media (max-width: 768px) {
+    .page-header {
+        margin-top: 120px;
+        min-height: 150px;
+    }
 }
 /*** Banner Section End ***/
 
