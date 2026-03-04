@@ -1115,3 +1115,36 @@
 #filterDropdown:hover i.fa-sliders-h {
     transform: scale(1.2);
 }
+
+/*** Search Page - View All Button Start ***/
+.btn-view-all-search {
+    border-width: 2px !important;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    border-color: var(--bs-primary) !important;
+    color: var(--bs-primary) !important;
+    background: transparent;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(43, 48, 53, 0.1);
+}
+
+.btn-view-all-search:hover {
+    background: var(--bs-primary) !important;
+    color: #ffffff !important;
+    border-color: var(--bs-primary) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px rgba(43, 48, 53, 0.3);
+}
+
+.btn-view-all-search:active {
+    transform: translateY(-1px);
+}
+
+.btn-view-all-search i {
+    transition: transform 0.3s ease;
+}
+
+.btn-view-all-search:hover i {
+    transform: scale(1.15);
+}
+/*** Search Page - View All Button End ***/
