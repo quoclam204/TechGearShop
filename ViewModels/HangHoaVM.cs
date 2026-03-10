@@ -20,5 +20,7 @@
         public string ChiTiet { get; set; }
         public int DiemDanhGia { get; set; }
         public int SoLuongTon { get; set; }
+        public int MaLoai { get; set; } // ✅ Thêm để lấy mã loại
+        public List<HangHoaVM> SanPhamLienQuan { get; set; } = new List<HangHoaVM>(); // ✅ Thêm danh sách sản phẩm liên quan
     }
 }

@@ -68,6 +68,22 @@ namespace EcommerceMVC.Controllers
                 return Redirect("/404");
             }
 
+            // ✅ Lấy sản phẩm liên quan cùng loại (không bao gồm sản phẩm hiện tại)
+            var sanPhamLienQuan = db.HangHoas
+                .Include(p => p.MaLoaiNavigation)
+                .Where(p => p.MaLoai == data.MaLoai && p.MaHh != id)
+                .Take(8) // Lấy tối đa 8 sản phẩm
+                .Select(p => new HangHoaVM
+                {
+                    MaHh = p.MaHh,
+                    TenHH = p.TenHh,
+                    DonGia = p.DonGia ?? 0,
+                    Hinh = p.Hinh ?? "",
+                    MoTaNgan = p.MoTaDonVi ?? "",
+                    TenLoai = p.MaLoaiNavigation.TenLoai
+                })
+                .ToList();
+
             var result = new ChiTietHangHoaVM
             {
                 MaHh = data.MaHh,
@@ -77,8 +93,10 @@ namespace EcommerceMVC.Controllers
                 Hinh = data.Hinh ?? string.Empty,
                 MoTaNgan = data.MoTaDonVi ?? string.Empty,
                 TenLoai = data.MaLoaiNavigation.TenLoai,
+                MaLoai = data.MaLoai, // ✅ Thêm mã loại
                 SoLuongTon = 10,
                 DiemDanhGia = 5,
+                SanPhamLienQuan = sanPhamLienQuan // ✅ Gán danh sách sản phẩm liên quan
             };
             return View(result);
         }
