@@ -15,7 +15,9 @@
 				<p>@item.MoTaNgan</p>
 				<div class="d-flex justify-content-between flex-lg-wrap">
 					<p class="text-dark fs-5 fw-bold mb-0">₫@item.DonGia.000</p>
-					<a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@item.MaHh" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Đưa vào giỏ</a>
+					<a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@item.MaHh" class="btn-add-to-cart">
+						<i class="fas fa-shopping-cart me-2"></i>Thêm vào giỏ
+					</a>
 				</div>
 			</div>
 		</div>
