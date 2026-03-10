@@ -54,6 +54,12 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
+// ✅ Route tùy chỉnh cho Detail - PHẢI ĐẶT TRƯỚC route mặc định
+app.MapControllerRoute(
+	name: "productDetail",
+	pattern: "Detail/{id:int}",
+	defaults: new { controller = "HangHoa", action = "Detail" }
+);
 
 app.MapControllerRoute(
 	name: "default",
