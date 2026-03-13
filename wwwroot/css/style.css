@@ -1416,3 +1416,29 @@
     }
 }
 /*** Product Detail Page - Fixed Image Dimensions End ***/
+
+/*** Home Page Product Price Styling Start ***/
+/* Áp dụng màu hồng cho giá sản phẩm trên trang home */
+.fruite-item .text-dark.fs-5.fw-bold {
+    color: #d63384 !important;
+}
+
+/* Cho ProductItem partial */
+.product-card .product-price,
+.product-price-wrapper .product-price {
+    color: #d63384 !important;
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+/* Cho FeaturedProducts component */
+.featured-products-section .text-primary.fw-bold {
+    color: #d63384 !important;
+}
+
+/* Giá sản phẩm trong grid */
+.fruite-item p.text-dark.fs-5.fw-bold,
+.product-grid .product-price {
+    color: #d63384 !important;
+}
+/*** Home Page Product Price Styling End ***/
