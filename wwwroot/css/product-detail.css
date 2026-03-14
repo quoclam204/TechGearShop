@@ -39,8 +39,8 @@
 .detail-image-wrapper {
     position: relative;
     background:
-        radial-gradient(900px 240px at 15% 0%, rgba(255, 147, 51, 0.14), transparent 45%),
-        radial-gradient(900px 240px at 95% 10%, rgba(255, 99, 132, 0.10), transparent 45%),
+        radial-gradient(900px 260px at 12% 0%, rgba(43, 48, 53, 0.08), transparent 55%),
+        radial-gradient(900px 260px at 96% 8%, rgba(43, 48, 53, 0.05), transparent 55%),
         var(--pd-surface);
     border: 1px solid var(--pd-border);
     border-radius: var(--pd-radius);
@@ -258,7 +258,7 @@
 .product-tabs .nav-tabs {
     border-bottom: 1px solid rgba(43, 48, 53, 0.12);
     padding: 10px 10px 0;
-    background: linear-gradient(180deg, rgba(255, 147, 51, 0.06), transparent);
+    background: linear-gradient(180deg, rgba(43, 48, 53, 0.06), transparent);
 }
 
 .product-tabs .nav-tabs .nav-link {
