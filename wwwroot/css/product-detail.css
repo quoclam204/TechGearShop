@@ -153,43 +153,62 @@
 .detail-quantity-control {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    margin-left: 0;
-    background: rgba(43, 48, 53, 0.04);
-    border: 1px solid rgba(43, 48, 53, 0.12);
+    gap: 8px;
+
+    padding: 6px 10px;
     border-radius: 999px;
-    padding: 6px;
+
+    background: #fff;
+    border: 1px solid rgba(43, 48, 53, 0.18);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.06);
 }
 
 .detail-quantity-control .btn-minus,
 .detail-quantity-control .btn-plus {
-    width: 38px;
-    height: 38px;
-    border: 1px solid rgba(43, 48, 53, 0.18);
-    background: #fff;
+    width: 34px;
+    height: 34px;
+
     border-radius: 999px;
+    border: 1px solid rgba(43, 48, 53, 0.18);
+    background: rgba(43, 48, 53, 0.04);
+    color: #2B3035;
+
     display: inline-grid;
     place-items: center;
-    transition: transform 120ms ease, background-color 120ms ease, border-color 120ms ease;
-    color: var(--pd-text);
+
+    transition: background-color 140ms ease, border-color 140ms ease, transform 120ms ease;
 }
 
 .detail-quantity-control .btn-minus:hover,
 .detail-quantity-control .btn-plus:hover {
-    background: rgba(255, 147, 51, 0.10);
-    border-color: rgba(255, 147, 51, 0.45);
+    background: rgba(43, 48, 53, 0.08);
+    border-color: rgba(43, 48, 53, 0.28);
     transform: translateY(-1px);
 }
 
+.detail-quantity-control .btn-minus:active,
+.detail-quantity-control .btn-plus:active {
+    transform: translateY(0);
+}
+
+.detail-quantity-control .btn-minus:focus-visible,
+.detail-quantity-control .btn-plus:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(255, 147, 51, 0.25);
+    border-color: rgba(255, 147, 51, 0.55);
+}
+
 .detail-quantity-control input[name="quantity"] {
-    width: 62px;
-    height: 38px;
-    text-align: center;
+    width: 52px;
+    height: 34px;
+
     border: none;
     outline: none;
     background: transparent;
-    font-weight: 800;
-    color: var(--pd-text);
+
+    text-align: center;
+    font-weight: 700;
+    color: #2B3035;
 }
 
 /* CTA button (match product-card: dark -> hover invert) */
