@@ -1,185 +1,191 @@
 ﻿@model EcommerceMVC.ViewModels.ChiTietHangHoaVM
 @{
-	ViewData["Title"] = Model.TenHH;
+    ViewData["Title"] = Model.TenHH;
 }
 
+@section Styles {
+    <link href="~/css/product-card.css" rel="stylesheet" />
+    <link href="~/css/product-detail.css" rel="stylesheet" asp-append-version="true" />
+}
 
 <!-- Single Page Header start -->
 <div class="container-fluid page-header py-5"></div>
 <!-- Single Page Header End -->
 
 <!-- Product Detail Section -->
-<div class="product-detail-section">
-	<div class="container">
-		<!-- Product Main Info -->
-		<div class="row">
-			<div class="col-lg-6">
-				<div class="product-image-wrapper">
-					<img src="~/Hinh/HangHoa/@Model.Hinh" alt="@Model.TenHH">
-				</div>
-			</div>
-			<div class="col-lg-6">
-				<div class="product-info">
-					<h1 class="product-title">@Model.TenHH</h1>
-					
-					<span class="product-category">
-						<i class="fas fa-tag me-2"></i>@Model.TenLoai
-					</span>
+<div class="detail-section">
+    <div class="container">
+        <!-- Product Main Info -->
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="detail-image-wrapper">
+                    <img src="~/Hinh/HangHoa/@Model.Hinh" alt="@Model.TenHH">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="detail-info">
+                    <h1 class="detail-title">@Model.TenHH</h1>
 
-					<div class="product-rating">
-						<i class="fas fa-star"></i>
-						<i class="fas fa-star"></i>
-						<i class="fas fa-star"></i>
-						<i class="fas fa-star"></i>
-						<i class="far fa-star"></i>
-						<span class="ms-2 text-muted">(4.0/5)</span>
-					</div>
+                    <span class="detail-category">
+                        <i class="fas fa-tag me-2"></i>@Model.TenLoai
+                    </span>
 
-					<div class="product-price">₫ <span class="total-price">@Model.DonGia.ToString("N0")</span></div>
-					<span class="unit-price" style="display:none;">@Model.DonGia</span>
+                    <div class="detail-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span class="ms-2 text-muted">(4.0/5)</span>
+                    </div>
 
-					<p class="product-description">@Model.MoTaNgan</p>
+                    <div class="detail-price" aria-label="Giá sản phẩm">
+                        <span class="total-price">@Model.DonGia.ToString("N0")</span>
+                        <span class="currency">₫</span>
+                    </div>
 
-					<form asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.MaHh">
-						<div class="quantity-selector">
-							<label class="fw-bold">Số lượng:</label>
-							<div class="quantity-control">
-								<button type="button" class="btn-minus">
-									<i class="fas fa-minus"></i>
-								</button>
-								<input type="text" name="quantity" value="1" readonly>
-								<button type="button" class="btn-plus">
-									<i class="fas fa-plus"></i>
-								</button>
-							</div>
-						</div>
+                    <p class="detail-description">@Model.MoTaNgan</p>
 
-						<button type="submit" class="btn btn-add-cart">
-							<i class="fas fa-shopping-bag me-2"></i>Thêm vào giỏ hàng
-						</button>
-					</form>
-				</div>
-			</div>
-		</div>
+                    <form asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.MaHh">
+                        <div class="detail-quantity-selector">
+                            <label class="fw-bold">Số lượng:</label>
+                            <div class="detail-quantity-control">
+                                <button type="button" class="btn-minus">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <input type="text" name="quantity" value="1" readonly>
+                                <button type="button" class="btn-plus">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
 
-		<!-- Product Tabs -->
-		<div class="product-tabs">
-			<nav>
-				<div class="nav nav-tabs" role="tablist">
-					<button class="nav-link active" data-bs-toggle="tab" data-bs-target="#description" type="button">
-						<i class="fas fa-info-circle me-2"></i>Mô tả chi tiết
-					</button>
-					<button class="nav-link" data-bs-toggle="tab" data-bs-target="#reviews" type="button">
-						<i class="fas fa-star me-2"></i>Đánh giá
-					</button>
-				</div>
-			</nav>
-			<div class="tab-content">
-				<div class="tab-pane fade show active" id="description">
-					<div class="description-content">
-						@Html.Raw(Model.ChiTiet)
-					</div>
-				</div>
-				<div class="tab-pane fade" id="reviews">
-					<div class="reviews-list">
-						<div class="review-item">
-							<div class="d-flex gap-3">
-								<img src="~/img/avatar.jpg" alt="Avatar" class="review-avatar">
-								<div class="flex-grow-1">
-									<div class="d-flex justify-content-between align-items-start mb-2">
-										<div>
-											<h5 class="mb-0">Nguyễn Văn A</h5>
-											<small class="text-muted">12/04/2024</small>
-										</div>
-										<div class="product-rating">
-											<i class="fas fa-star"></i>
-											<i class="fas fa-star"></i>
-											<i class="fas fa-star"></i>
-											<i class="fas fa-star"></i>
-											<i class="far fa-star"></i>
-										</div>
-									</div>
-									<p class="mb-0">Sản phẩm rất tốt, chất lượng đúng như mô tả. Giao hàng nhanh chóng, đóng gói cẩn thận.</p>
-								</div>
-							</div>
-						</div>
+                        <button type="submit" class="btn detail-add-cart">
+                            <i class="fas fa-shopping-bag me-2"></i>Thêm vào giỏ hàng
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
 
-						<div class="review-item">
-							<div class="d-flex gap-3">
-								<img src="~/img/avatar.jpg" alt="Avatar" class="review-avatar">
-								<div class="flex-grow-1">
-									<div class="d-flex justify-content-between align-items-start mb-2">
-										<div>
-											<h5 class="mb-0">Trần Thị B</h5>
-											<small class="text-muted">10/04/2024</small>
-										</div>
-										<div class="product-rating">
-											<i class="fas fa-star"></i>
-											<i class="fas fa-star"></i>
-											<i class="fas fa-star"></i>
-											<i class="fas fa-star"></i>
-											<i class="fas fa-star"></i>
-										</div>
-									</div>
-									<p class="mb-0">Rất hài lòng với sản phẩm này. Giá cả phải chăng, chất lượng tuyệt vời!</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+        <!-- Product Tabs -->
+        <div class="product-tabs">
+            <nav>
+                <div class="nav nav-tabs" role="tablist">
+                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#description" type="button">
+                        <i class="fas fa-info-circle me-2"></i>Mô tả chi tiết
+                    </button>
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#reviews" type="button">
+                        <i class="fas fa-star me-2"></i>Đánh giá
+                    </button>
+                </div>
+            </nav>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="description">
+                    <div class="description-content">
+                        @Html.Raw(Model.ChiTiet)
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="reviews">
+                    <div class="reviews-list">
+                        <div class="review-item">
+                            <div class="d-flex gap-3">
+                                <img src="~/img/avatar.jpg" alt="Avatar" class="review-avatar">
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <div>
+                                            <h5 class="mb-0">Nguyễn Văn A</h5>
+                                            <small class="text-muted">12/04/2024</small>
+                                        </div>
+                                        <div class="product-rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <p class="mb-0">Sản phẩm rất tốt, chất lượng đúng như mô tả. Giao hàng nhanh chóng, đóng gói cẩn thận.</p>
+                                </div>
+                            </div>
+                        </div>
 
-		<!-- Related Products -->
-		<div class="related-products">
-			<h2><i class="fas fa-boxes me-3"></i>Sản phẩm liên quan - @Model.TenLoai</h2>
-			@if (Model.SanPhamLienQuan != null && Model.SanPhamLienQuan.Any())
-			{
-				<div class="row g-4 product-grid">
-					@await Html.PartialAsync("_ProductGrid", Model.SanPhamLienQuan)
-				</div>
-			}
-			else
-			{
-				<div class="text-center text-muted">
-					<p>Không có sản phẩm liên quan nào.</p>
-				</div>
-			}
-		</div>
-	</div>
+                        <div class="review-item">
+                            <div class="d-flex gap-3">
+                                <img src="~/img/avatar.jpg" alt="Avatar" class="review-avatar">
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <div>
+                                            <h5 class="mb-0">Trần Thị B</h5>
+                                            <small class="text-muted">10/04/2024</small>
+                                        </div>
+                                        <div class="product-rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <p class="mb-0">Rất hài lòng với sản phẩm này. Giá cả phải chăng, chất lượng tuyệt vời!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Related Products -->
+        <div class="related-products">
+            <h2><i class="fas fa-boxes me-3"></i>Sản phẩm liên quan - @Model.TenLoai</h2>
+            @if (Model.SanPhamLienQuan != null && Model.SanPhamLienQuan.Any())
+            {
+                <div class="product-grid">
+                    @await Html.PartialAsync("_ProductGrid", Model.SanPhamLienQuan)
+                </div>
+            }
+            else
+            {
+                <div class="text-center text-muted">
+                    <p>Không có sản phẩm liên quan nào.</p>
+                </div>
+            }
+        </div>
+    </div>
 </div>
 
 @section Scripts {
 <script>
-	// Quantity control
-	document.querySelectorAll('.btn-minus').forEach(button => {
-		button.addEventListener('click', function() {
-			const input = this.parentElement.querySelector('input[name="quantity"]');
-			let value = parseInt(input.value) || 1;
-			if (value > 1) {
-				value--;
-				input.value = value;
-				updatePrice(value);
-			}
-		});
-	});
+    // Quantity control
+    document.querySelectorAll('.btn-minus').forEach(button => {
+        button.addEventListener('click', function() {
+            const input = this.parentElement.querySelector('input[name="quantity"]');
+            let value = parseInt(input.value) || 1;
+            if (value > 1) {
+                value--;
+                input.value = value;
+                updatePrice(value);
+            }
+        });
+    });
 
-	document.querySelectorAll('.btn-plus').forEach(button => {
-		button.addEventListener('click', function() {
-			const input = this.parentElement.querySelector('input[name="quantity"]');
-			let value = parseInt(input.value) || 1;
-			if (value < 50) {
-				value++;
-				input.value = value;
-				updatePrice(value);
-			}
-		});
-	});
+    document.querySelectorAll('.btn-plus').forEach(button => {
+        button.addEventListener('click', function() {
+            const input = this.parentElement.querySelector('input[name="quantity"]');
+            let value = parseInt(input.value) || 1;
+            if (value < 50) {
+                value++;
+                input.value = value;
+                updatePrice(value);
+            }
+        });
+    });
 
-	function updatePrice(quantity) {
-		const unitPrice = parseFloat(document.querySelector('.unit-price').textContent);
-		const totalPrice = unitPrice * quantity;
-		document.querySelector('.total-price').textContent = totalPrice.toLocaleString('vi-VN');
-	}
+    function updatePrice(quantity) {
+        const unitPrice = parseFloat(document.querySelector('.unit-price').textContent);
+        const totalPrice = unitPrice * quantity;
+        document.querySelector('.total-price').textContent = totalPrice.toLocaleString('vi-VN');
+    }
 </script>
 }
