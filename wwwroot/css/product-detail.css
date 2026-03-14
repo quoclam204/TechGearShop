@@ -109,27 +109,21 @@
     color: var(--pd-muted) !important;
 }
 
-/* Price (match product-card.css) */
+/* Price (match product-card.css exactly) */
 .detail-price {
     display: block;           /* like .product-price */
-    color: #000;              /* like .product-price */
-    font-size: 0.95rem;       /* like .product-price (card size) */
-    font-weight: 700;         /* like .product-price */
+    color: #000 !important;   /* force same as grid */
+    font-size: 0.95rem;       /* same as grid */
+    font-weight: 700;         /* same as grid */
     line-height: 1.2;
-
-    /* remove underline/link-like decoration */
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
-.detail-price .total-price {
-    color: inherit;
-    letter-spacing: 0;
-}
-
+.detail-price .total-price,
 .detail-price .currency {
-    color: inherit;
-    font-weight: 700;
-    font-size: inherit;       /* same size as number like card */
+    color: inherit !important;
+    font-weight: inherit;
+    font-size: inherit;
 }
 
 /* Description */

@@ -39,9 +39,12 @@
                         <span class="ms-2 text-muted">(4.0/5)</span>
                     </div>
 
-                    <div class="detail-price" aria-label="Giá sản phẩm">
-                        <span class="total-price">@Model.DonGia.ToString("N0")</span>
-                        <span class="currency">₫</span>
+                    <div class="product-price-wrapper">
+                        <span class="product-price"
+                              id="productPrice"
+                              data-unit-price="@Model.DonGia">
+                            @Model.DonGia.ToString("N0") ₫
+                        </span>
                     </div>
 
                     <p class="detail-description">@Model.MoTaNgan</p>
@@ -157,11 +160,24 @@
 
 @section Scripts {
 <script>
-    // Quantity control
+    function updatePrice(quantity) {
+        const priceEl = document.getElementById('productPrice');
+        if (!priceEl) return;
+
+        const unitPriceRaw = priceEl.dataset.unitPrice;
+        const unitPrice = Number(unitPriceRaw);
+
+        if (!Number.isFinite(unitPrice)) return;
+
+        const totalPrice = unitPrice * quantity;
+        priceEl.textContent = totalPrice.toLocaleString('vi-VN') + ' ₫';
+    }
+
     document.querySelectorAll('.btn-minus').forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const input = this.parentElement.querySelector('input[name="quantity"]');
-            let value = parseInt(input.value) || 1;
+            let value = parseInt(input.value, 10) || 1;
+
             if (value > 1) {
                 value--;
                 input.value = value;
@@ -171,9 +187,10 @@
     });
 
     document.querySelectorAll('.btn-plus').forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const input = this.parentElement.querySelector('input[name="quantity"]');
-            let value = parseInt(input.value) || 1;
+            let value = parseInt(input.value, 10) || 1;
+
             if (value < 50) {
                 value++;
                 input.value = value;
@@ -182,10 +199,7 @@
         });
     });
 
-    function updatePrice(quantity) {
-        const unitPrice = parseFloat(document.querySelector('.unit-price').textContent);
-        const totalPrice = unitPrice * quantity;
-        document.querySelector('.total-price').textContent = totalPrice.toLocaleString('vi-VN');
-    }
+    // đảm bảo load trang là giá đúng theo quantity hiện tại (1)
+    updatePrice(parseInt(document.querySelector('input[name="quantity"]')?.value, 10) || 1);
 </script>
 }
