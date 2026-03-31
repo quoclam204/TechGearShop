@@ -80,11 +80,11 @@
         <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
             <div class="navbar-nav mx-auto">
                 <a asp-action="Index" asp-controller="Home" class="nav-item nav-link active">Trang chủ</a>
-                <a asp-controller="HangHoa" asp-action="Index" class="nav-item nav-link">Cửa hàng</a>
+							<a asp-controller="Cart" asp-action="Index" class="nav-item nav-link">Giỏ hàng</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Thành viên</a>
                     <div class="dropdown-menu m-0 bg-light rounded-0">
-                        <a asp-controller="Cart" asp-action="Index" class="dropdown-item">Giỏ hàng</a>
+                        
                         @if (User.Identity.IsAuthenticated)
                         {
                             <a asp-controller="Home" asp-action="Profile" class="dropdown-item">Thông tin tài khoản</a>
