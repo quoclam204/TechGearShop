@@ -1,6 +1,7 @@
 ﻿using EcommerceMVC.Data;
 using EcommerceMVC.Helpers;
 using EcommerceMVC.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceMVC.Controllers
@@ -22,6 +23,7 @@ namespace EcommerceMVC.Controllers
 			return View(Cart);
 		}
 
+		[Authorize]
 		public IActionResult AddToCart(int id, int quantity = 1)
 		{
 			var gioHang = Cart;
