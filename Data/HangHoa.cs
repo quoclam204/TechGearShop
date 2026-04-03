@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace EcommerceMVC.Data;
 
@@ -7,7 +8,7 @@ public partial class HangHoa
 {
     public int MaHh { get; set; }
 
-    public string TenHh { get; set; }
+    public string TenHh { get; set; } = null;
 
     public string? TenAlias { get; set; }
 
@@ -27,15 +28,18 @@ public partial class HangHoa
 
     public string? MoTa { get; set; }
 
-    public string MaNcc { get; set; }
+    public string MaNcc { get; set; } = null;
 
     public virtual ICollection<BanBe> BanBes { get; set; } = new List<BanBe>();
 
     public virtual ICollection<ChiTietHd> ChiTietHds { get; set; } = new List<ChiTietHd>();
 
-    public virtual Loai MaLoaiNavigation { get; set; }
+    [ValidateNever]
+    public virtual Loai? MaLoaiNavigation { get; set; }
 
-    public virtual NhaCungCap MaNccNavigation { get; set; }
+
+    [ValidateNever]
+    public virtual NhaCungCap? MaNccNavigation { get; set; }
 
     public virtual ICollection<YeuThich> YeuThiches { get; set; } = new List<YeuThich>();
 }

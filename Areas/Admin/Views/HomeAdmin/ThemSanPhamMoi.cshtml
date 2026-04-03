@@ -10,7 +10,9 @@
     <h1 class="text-center text-primary">Thêm Sản Phẩm Mới</h1>
     <hr />
 
-    <form method="post" asp-action="ThemSanPhamMoi" class="shadow p-4 bg-light rounded">
+    <form method="post" asp-action="ThemSanPhamMoi" enctype="multipart/form-data" class="shadow p-4 bg-light rounded">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
         <h4 class="text-secondary">Thông Tin Sản Phẩm</h4>
         <div class="row g-3">
             <div class="col-md-6">
@@ -45,7 +47,7 @@
                 </div>
                 <div class="form-group mb-3">
                     <label asp-for="Hinh" class="form-label fw-bold">Hình Ảnh</label>
-                    <input asp-for="Hinh" class="form-control" placeholder="Đường dẫn hình ảnh" />
+                    <input type="file" name="HinhUpload" class="form-control" />
                     <span asp-validation-for="Hinh" class="text-danger"></span>
                 </div>
                 <div class="form-group mb-3">

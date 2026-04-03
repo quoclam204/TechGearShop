@@ -69,16 +69,29 @@ namespace EcommerceMVC.Areas.Admin.Controllers
         [Route("ThemSanPhamMoi")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ThemSanPhamMoi(HangHoa sanPham)
+        [HttpPost]
+        public async Task<IActionResult> ThemSanPhamMoi(HangHoa sanPham, IFormFile HinhUpload)
         {
-
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
+                if (HinhUpload != null)
+                {
+                    var fileName = Path.GetFileName(HinhUpload.FileName);
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await HinhUpload.CopyToAsync(stream);
+                    }
+
+                    sanPham.Hinh = fileName; // lưu tên ảnh vào DB
+                }
+
                 db.HangHoas.Add(sanPham);
                 db.SaveChanges();
                 return RedirectToAction("DanhMucSanPham");
-
             }
+
             return View(sanPham);
         }
 
@@ -88,7 +101,7 @@ namespace EcommerceMVC.Areas.Admin.Controllers
         {
             // Tìm sản phẩm theo mã số
             var sanPham = db.HangHoas.Find(maSanPham);  // Không cần kiểm tra kiểu dữ liệu vì đã là int
-            if (sanPham == null)
+            if (ModelState.IsValid)
             {
                 return NotFound("Không tìm thấy sản phẩm.");
             }
