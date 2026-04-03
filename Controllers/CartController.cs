@@ -67,5 +67,16 @@ namespace EcommerceMVC.Controllers
 			}
 			return RedirectToAction("Index");
 		}
-	}
+
+		[Authorize]
+		public IActionResult Checkout()
+		{
+			if (Cart.Count == 0)
+			{
+				TempData["Message"] = "Giỏ hàng của bạn đang trống.";
+				return RedirectToAction("Index");
+			}
+			return View(Cart);
+        }
+    }
 }
