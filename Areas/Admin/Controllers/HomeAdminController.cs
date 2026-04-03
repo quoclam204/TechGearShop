@@ -101,14 +101,13 @@ namespace EcommerceMVC.Areas.Admin.Controllers
         {
             // Tìm sản phẩm theo mã số
             var sanPham = db.HangHoas.Find(maSanPham);  // Không cần kiểm tra kiểu dữ liệu vì đã là int
-            if (ModelState.IsValid)
+            if (sanPham == null)
             {
                 return NotFound("Không tìm thấy sản phẩm.");
             }
 
-            // Tạo ViewBag cho danh sách loại và nhà cung cấp
-            ViewBag.MaLoai = new SelectList(db.Loais.ToList(), "MaLoai", "TenLoai");
-            ViewBag.MaNCC = new SelectList(db.NhaCungCaps.ToList(), "MaNcc", "TenCongTy");
+            ViewBag.MaLoai = new SelectList(db.Loais.AsNoTracking().ToList(), "MaLoai", "TenLoai", sanPham.MaLoai);
+            ViewBag.MaNCC = new SelectList(db.NhaCungCaps.AsNoTracking().ToList(), "MaNcc", "TenCongTy", sanPham.MaNcc);
 
             return View(sanPham);
         }
@@ -116,69 +115,53 @@ namespace EcommerceMVC.Areas.Admin.Controllers
         [Route("SuaSanPham")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult SuaSanPham(HangHoa sanPham)
+        public async Task<IActionResult> SuaSanPham(HangHoa sanPham, IFormFile? HinhUpload)
         {
-            // Debug: Kiểm tra các lỗi nếu có
-            foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+            if (!ModelState.IsValid)
             {
-                Console.WriteLine(error.ErrorMessage);
+                ViewBag.MaLoai = new SelectList(db.Loais.AsNoTracking().ToList(), "MaLoai", "TenLoai", sanPham.MaLoai);
+                ViewBag.MaNCC = new SelectList(db.NhaCungCaps.AsNoTracking().ToList(), "MaNcc", "TenCongTy", sanPham.MaNcc);
+                return View(sanPham);
             }
 
-            // Kiểm tra tính hợp lệ của model
-            if (sanPham!=null)
+            var existing = await db.HangHoas.FirstOrDefaultAsync(x => x.MaHh == sanPham.MaHh);
+            if (existing == null)
             {
-                //var existingProduct = db.HangHoas.Find(sanPham.MaHh);
-                //existingProduct.TenHh = sanPham.TenHh;
-                //existingProduct.DonGia = sanPham.DonGia;
-                // Cập nhật sản phẩm trong cơ sở dữ liệu
-                db.Entry(sanPham).State = EntityState.Modified;  // Đảm bảo trạng thái là "Modified"
-                db.SaveChanges();
-
-                // Chuyển hướng đến danh mục sản phẩm
-                return RedirectToAction("DanhMucSanPham");
+                return NotFound("Không tìm thấy sản phẩm.");
             }
 
-            // Nếu model không hợp lệ, trả về view với đối tượng sản phẩm
-            return View(sanPham);
+            // Upload hình mới (nếu có)
+            if (HinhUpload is { Length: > 0 })
+            {
+                var fileName = Path.GetFileName(HinhUpload.FileName);
+                var folder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Hinh", "HangHoa");
+                Directory.CreateDirectory(folder);
+                var path = Path.Combine(folder, fileName);
+
+                await using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await HinhUpload.CopyToAsync(stream);
+                }
+
+                existing.Hinh = fileName;
+            }
+
+            // Update các field
+            existing.TenHh = sanPham.TenHh;
+            existing.TenAlias = sanPham.TenAlias;
+            existing.MaLoai = sanPham.MaLoai;
+            existing.MoTaDonVi = sanPham.MoTaDonVi;
+            existing.DonGia = sanPham.DonGia;
+            existing.NgaySx = sanPham.NgaySx;
+            existing.GiamGia = sanPham.GiamGia;
+            existing.SoLanXem = sanPham.SoLanXem;
+            existing.MoTa = sanPham.MoTa;
+            existing.MaNcc = sanPham.MaNcc;
+
+            await db.SaveChangesAsync();
+            return RedirectToAction("DanhMucSanPham");
         }
-        //[Route("SuaSanPham")]
-        //[HttpGet]
-        //public IActionResult SuaSanPham(int maSanPham)
-        //{
-        //    var sanPham = db.HangHoas.Find(maSanPham);
-        //    if (sanPham == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(sanPham); // Trả về View để người dùng có thể sửa sản phẩm
-        //}
-        //[Route("SuaSanPham")]
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult SuaSanPham(HangHoa sanPham)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var existingProduct = db.HangHoas.Find(sanPham.MaHh);
-        //        if (existingProduct == null)
-        //        {
-        //            return NotFound();
-        //        }
-
-        //        // Cập nhật thông tin sản phẩm
-        //        existingProduct.TenHh = sanPham.TenHh;
-        //        existingProduct.DonGia = sanPham.DonGia;
-        //        // Cập nhật các trường khác tùy theo yêu cầu
-
-        //        db.SaveChanges();
-        //        return RedirectToAction("DanhMucSanPham");  // Quay lại trang danh mục sản phẩm
-        //    }
-
-        //    // Nếu có lỗi, trả về view với dữ liệu sản phẩm hiện tại
-        //    return View(sanPham);
-        //}
-
-
+        
         [Route("XoaSanPham")]
         [HttpPost]
         [ValidateAntiForgeryToken]  // Đảm bảo bảo mật CSRF

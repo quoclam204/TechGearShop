@@ -80,14 +80,12 @@
 
 
                 <td>
-                  @*   <a asp-action="SuaSanPham" asp-route-maSanPham="@item.MaHh">Sửa</a>
-                   
-                    <a asp-action="Details" asp-route-id="@item.MaHh">Xem</a> | *@
+                    <a class="btn btn-warning me-2" asp-action="SuaSanPham" asp-route-maSanPham="@item.MaHh">Sửa</a>
+
                     <form asp-action="XoaSanPham" method="post" style="display:inline;">
                         <input type="hidden" name="maSanPham" value="@item.MaHh" />
                         <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')">Xóa</button>
                     </form>
-
                 </td>
             </tr>
         }
