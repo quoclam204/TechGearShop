@@ -687,6 +687,11 @@
     border-color: #2B3035 !important;
 }
 
+/* Override Bootstrap border-secondary to match gray theme */
+.border-secondary {
+    border-color: var(--bs-secondary) !important;
+}
+
 /*** Hero Carousel Banner Start ***/
 .hero-carousel {
     max-width: 1000px;
@@ -833,9 +838,9 @@
 }
 
 .navbar-search-box input.form-control:focus {
-    border-color: var(--bs-primary);
-    box-shadow: 0 0 0 0.2rem rgba(43, 48, 53, 0.15);
-    outline: none;
+    border-color: inherit !important;
+    box-shadow: none !important;
+    outline: none !important;
     background: #ffffff;
 }
 
@@ -1442,3 +1447,19 @@
     color: #d63384 !important;
 }
 /*** Home Page Product Price Styling End ***/
+
+/* Override Bootstrap focus ring for inputs */
+.form-control:focus {
+    border-color: inherit !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* Disable Bootstrap focus ring (blue/green outline) for buttons */
+.btn:focus,
+.btn:focus-visible,
+.btn-check:focus + .btn,
+.btn-check:focus-visible + .btn {
+    outline: none !important;
+    box-shadow: none !important;
+}
