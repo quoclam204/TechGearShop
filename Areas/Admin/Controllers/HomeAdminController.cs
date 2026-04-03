@@ -77,7 +77,7 @@ namespace EcommerceMVC.Areas.Admin.Controllers
                 if (HinhUpload != null)
                 {
                     var fileName = Path.GetFileName(HinhUpload.FileName);
-                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Hinh/HangHoa", fileName);
 
                     using (var stream = new FileStream(path, FileMode.Create))
                     {
