@@ -157,7 +157,7 @@ namespace EcommerceMVC.Controllers
 						claims = new List<Claim> {
 								new Claim(ClaimTypes.Email, nhanvien.Email),
 								new Claim(ClaimTypes.Name, nhanvien.HoTen),
-								new Claim("CustomerID", nhanvien.MaNv),
+                                new Claim(MySetting.CLAIM_CUSTOMERID, nhanvien.MaNv),
 
 								//claim - role động
 								new Claim(ClaimTypes.Role, nhanvien.IsAdmin ? "Admin": "Manager")

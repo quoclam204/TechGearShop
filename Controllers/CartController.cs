@@ -87,22 +87,23 @@ namespace EcommerceMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                var customerId = HttpContext.User.Claims.SingleOrDefault(User => User.Type ==
-                MySetting.CLAIM_CUSTOMERID).Value;
+                var customerId = HttpContext.User.Claims
+                    .SingleOrDefault(x => x.Type == MySetting.CLAIM_CUSTOMERID)?.Value;
 
                 var khachHang = new KhachHang();
 
                 if (model.GiongKhachHang)
                 {
-                    khachHang = db.KhachHangs.SingleOrDefault(kh => kh.MaKh == customerId);
+                    khachHang = db.KhachHangs
+                        .SingleOrDefault(kh => kh.MaKh == customerId);
                 }
 
                 var hoaDon = new HoaDon
                 {
                     MaKh = customerId,
-                    HoTen = model.HoTen ?? khachHang.HoTen,
-                    DiaChi = model.DiaChi ?? khachHang.DiaChi,
-                    DienThoai = model.DienThoai ?? khachHang.DienThoai,
+                    HoTen = model.HoTen ?? khachHang?.HoTen,
+                    DiaChi = model.DiaChi ?? khachHang?.DiaChi,
+                    DienThoai = model.DienThoai ?? khachHang?.DienThoai,
                     NgayDat = DateTime.Now,
                     CachThanhToan = "COD",
                     CachVanChuyen = "GRAB",
@@ -110,38 +111,52 @@ namespace EcommerceMVC.Controllers
                     GhiChu = model.GhiChu
                 };
 
-                db.Database.BeginTransaction();
-                try
+                using (var transaction = db.Database.BeginTransaction()) // ✅ đúng cách
                 {
-                    db.Database.CommitTransaction();
-                    db.Add(hoaDon);
-                    db.SaveChanges();   
-
-                    var cthds = new List<ChiTietHd>();
-                    foreach (var item in Cart)
+                    try
                     {
-                        cthds.Add(new ChiTietHd
+                        // 1. Lưu hóa đơn
+                        db.Add(hoaDon);
+                        db.SaveChanges();
+
+                        // 2. Lưu chi tiết hóa đơn
+                        var cthds = new List<ChiTietHd>();
+                        foreach (var item in Cart)
                         {
-                            MaHd = hoaDon.MaHd,
-                            MaHh = item.MaHh,
-                            SoLuong = item.SoLuong,
-                            DonGia = item.DonGia,
-                            GiamGia = 0
-                        });
+                            cthds.Add(new ChiTietHd
+                            {
+                                MaHd = hoaDon.MaHd,
+                                MaHh = item.MaHh,
+                                SoLuong = item.SoLuong,
+                                DonGia = item.DonGia,
+                                GiamGia = 0
+                            });
+                        }
+
+                        db.AddRange(cthds);
+                        db.SaveChanges();
+
+                        // 3. Commit sau cùng
+                        transaction.Commit(); // ✅ đúng chỗ
+
+                        // 4. Xóa giỏ hàng
+                        HttpContext.Session.Set<List<CartItem>>(
+                            MySetting.CART_KEY,
+                            new List<CartItem>()
+                        );
+
+                        return View("Success");
                     }
-                    db.AddRange(cthds);
-                    db.SaveChanges();
-
-                    HttpContext.Session.Set<List<CartItem>>(MySetting.CART_KEY, new List<CartItem>());
-
-                    return View("Success"); 
-                }
-                catch
-                {
-                    db.Database.RollbackTransaction();
+                    catch (Exception)
+                    {
+                        transaction.Rollback(); // ✅ rollback nếu lỗi
+                        throw; // nên throw để debug
+                    }
                 }
             }
+
             return View(Cart);
         }
     }
 }
+
