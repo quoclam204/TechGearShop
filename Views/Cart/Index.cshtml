@@ -1,134 +1,172 @@
 ﻿@model IEnumerable<EcommerceMVC.ViewModels.CartItem>
 @{
-	ViewData["Title"] = "Index";
+    ViewData["Title"] = "Index";
 }
 
-<!-- Single Page Header start -->
-<div class="container-fluid page-header py-5">
-	
-</div>
+<div class="container-fluid page-header py-5"></div>
 
-<!-- Single Page Header End -->
-<!-- Cart Page Start -->
 <div class="container-fluid py-5">
-	<div class="container py-5">
-		<div class="table-responsive">
-			<table class="table">
-				<thead>
-					<tr>
-						<th scope="col">Các sản phẩm</th>
-						<th scope="col">Tên SP</th>
-						<th scope="col">Giá</th>
-						<th scope="col">Số lượng</th>
-						<th scope="col">Tổng cộng</th>
-						<th scope="col">Xử lý</th>
-					</tr>
-				</thead>
-				<tbody>
-					@foreach (var item in Model)
-					{
-						<tr>
-							<th scope="row">
-								<div class="d-flex align-items-center">
-									<img src="~/Hinh/HangHoa/@item.Hinh" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="@item.TenHH">
-								</div>
-							</th>
-							<td>
-								<p class="mb-0 mt-4">
-									<a class="cart-product-link" asp-action="Detail" asp-controller="HangHoa" asp-route-id="@item.MaHh">
-										@item.TenHH
-									</a>
-								</p>
-							</td>
-							<td>
-								<p class="mb-0 mt-4">₫ <span class="unit-price">@item.DonGia</span></p>
-							</td>
-							<td>
-								<div class="input-group quantity mt-4" style="width: 100px;">
-									<div class="input-group-btn">
-										<button class="btn btn-sm btn-minus rounded-circle bg-light border" onclick="updateQuantity(this, -1)">
-											<i class="fa fa-minus"></i>
-										</button>
-									</div>
-									<span class="form-control form-control-sm text-center border-0 quantity-value">@item.SoLuong</span>
-									<div class="input-group-btn">
-										<button class="btn btn-sm btn-plus rounded-circle bg-light border" onclick="updateQuantity(this, 1)">
-											<i class="fa fa-plus"></i>
-										</button>
-									</div>
-								</div>
-							</td>
-							<td>
-								<p class="mb-0 mt-4">₫ <span class="total-price">@item.ThanhTien</span></p>
-							</td>
-							<td>
-								<a asp-action="RemoveCart" asp-controller="Cart" asp-route-id="@item.MaHh" class="btn btn-md rounded-circle bg-light border mt-4">
-									<i class="fa fa-times text-danger"></i>
-								</a>
-							</td>
-						</tr>
-					}
-				</tbody>
-			</table>
-		</div>
-		<div class="mt-5">
-			<input type="text" class="border-0 border-bottom rounded me-5 py-3 mb-4" placeholder="Mã giảm giá">
-			<button class="btn border-secondary rounded-pill px-4 py-3 text-primary" type="button">Áp dụng</button>
-		</div>
-		<div class="row g-4 justify-content-end">
-			<div class="col-8"></div>
-			<div class="col-sm-8 col-md-7 col-lg-6 col-xl-4">
-				<div class="bg-light rounded">
-					<div class="p-4">
-						<h1 class="display-6 mb-4">Thành<span class="fw-normal"> Tiền</span></h1>
-						<div class="d-flex justify-content-between mb-4">
-							<h5 class="mb-0 me-4">Tổng cộng</h5>
-							<p class="mb-0">₫ <span id="cart-total">@Model.Sum(p => p.ThanhTien)</span></p>
-						</div>
-						<div class="d-flex justify-content-between">
-							<h5 class="mb-0 me-4">Vận chuyển</h5>
-							<div class="">
-								<p class="mb-0">Cố định: Đ10.00</p>
-							</div>
-						</div>
-						<p class="mb-0 text-end">Miễn phí vẫn chuyển tại Đà Lạt.</p>
-					</div>
-					<div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
-						<h5 class="mb-0 ps-4 me-4">Tổng cộng</h5>
-						<p class="mb-0 pe-4">₫ <span id="cart-total-2">@Model.Sum(p => p.ThanhTien)</span></p>
-					</div>
-					<a class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" 
-					asp-action="Checkout" asp-controller="Cart">Thanh toán</a>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="container py-5">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Các sản phẩm</th>
+                        <th scope="col">Tên SP</th>
+                        <th scope="col">Giá</th>
+                        <th scope="col">Số lượng</th>
+                        <th scope="col">Tổng cộng</th>
+                        <th scope="col">Xử lý</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th scope="row">
+                                <div class="d-flex align-items-center">
+                                    <img src="~/Hinh/HangHoa/@item.Hinh" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="@item.TenHH">
+                                </div>
+                            </th>
+                            <td>
+                                <p class="mb-0 mt-4">
+                                    <a class="cart-product-link" asp-action="Detail" asp-controller="HangHoa" asp-route-id="@item.MaHh">
+                                        @item.TenHH
+                                    </a>
+                                </p>
+                            </td>
+                            <td>
+                                <p class="mb-0 mt-4">
+                                    <span class="unit-price" data-value="@item.DonGia">@item.DonGia.ToString("N0")</span> ₫
+                                </p>
+                            </td>
+                            <td>
+                                <div class="input-group quantity mt-4" style="width: 110px;">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-minus rounded-circle bg-light border" type="button" onclick="updateQuantity(this, -1)">
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                    </div>
+                                    <span class="form-control form-control-sm text-center border-0 quantity-value">@item.SoLuong</span>
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-plus rounded-circle bg-light border" type="button" onclick="updateQuantity(this, 1)">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="mb-0 mt-4">
+                                    <span class="total-price" data-value="@item.ThanhTien">@item.ThanhTien.ToString("N0")</span> ₫
+                                </p>
+                            </td>
+                            <td>
+                                <a asp-action="RemoveCart" asp-controller="Cart" asp-route-id="@item.MaHh" class="btn btn-md rounded-circle bg-light border mt-4">
+                                    <i class="fa fa-times text-danger"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row g-4 justify-content-end">
+            <div class="col-8"></div>
+
+            <div class="col-sm-8 col-md-7 col-lg-6 col-xl-4">
+                <div class="bg-light rounded shadow-sm">
+                    <div class="p-4">
+                        <h2 class="h3 mb-4">Thành <span class="fw-normal">Tiền</span></h2>
+
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <div class="text-muted fw-semibold">Tạm tính</div>
+                            <div class="fw-semibold">
+                                <span id="cart-subtotal" data-value="@Model.Sum(p => p.ThanhTien)">@Model.Sum(p => p.ThanhTien).ToString("N0")</span> ₫
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-start justify-content-between mb-2">
+                            <div class="text-muted fw-semibold">Vận chuyển</div>
+                            <div class="text-end">
+                                <div class="fw-semibold">10.000 ₫</div>
+                                <small class="text-muted d-block">Miễn phí vận chuyển tại Đà Lạt.</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="px-4 py-3 border-top d-flex align-items-center justify-content-between">
+                        <div class="fw-bold">Tổng cộng</div>
+                        <div class="fw-bold fs-5 text-dark">
+                            <span id="cart-total" data-value="@Model.Sum(p => p.ThanhTien)">@Model.Sum(p => p.ThanhTien).ToString("N0")</span> ₫
+                        </div>
+                    </div>
+
+                    <div class="p-4 pt-3">
+                        <a class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase w-100"
+                           asp-action="Checkout" asp-controller="Cart">Thanh toán</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<!-- Cart Page End -->
 
 <script>
-	function updateQuantity(button, delta) {
-		const quantityGroup = button.closest('.quantity');
-		const quantitySpan = quantityGroup.querySelector('.quantity-value');
-		const totalPriceSpan = quantityGroup.closest('tr').querySelector('.total-price');
-		const unitPrice = parseFloat(quantityGroup.closest('tr').querySelector('.unit-price').textContent.replace(/[^0-9.-]+/g, ""));
+    function formatVnd(value) {
+        return (value || 0).toLocaleString('vi-VN');
+    }
 
-		let currentValue = parseInt(quantitySpan.textContent) || 1;
-		let newValue = Math.min(50, Math.max(1, currentValue + delta));
+    function getNumberFromDataValue(el) {
+        if (!el) return 0;
+        const raw = el.getAttribute('data-value');
+        return Number(raw) || 0;
+    }
 
-		quantitySpan.textContent = newValue;
-		totalPriceSpan.textContent = (unitPrice * newValue).toLocaleString();
+    function setMoney(el, value) {
+        el.setAttribute('data-value', value);
+        el.textContent = formatVnd(value);
+    }
 
-		updateCartTotal();
-	}
+    function updateQuantity(button, delta) {
+        const quantityGroup = button.closest('.quantity');
+        const quantitySpan = quantityGroup.querySelector('.quantity-value');
+        const row = quantityGroup.closest('tr');
 
-	function updateCartTotal() {
-		let total = 0;
-		document.querySelectorAll('.total-price').forEach(el => {
-			total += parseFloat(el.textContent.replace(/[^0-9.-]+/g, "")) || 0;
-		});
+        const unitPriceEl = row.querySelector('.unit-price');
+        const totalPriceEl = row.querySelector('.total-price');
 
-		document.getElementById('cart-total').textContent = total.toLocaleString();
-		document.getElementById('cart-total-2').textContent = total.toLocaleString();
-	}
+        const unitPrice = getNumberFromDataValue(unitPriceEl);
+
+        let currentValue = parseInt(quantitySpan.textContent) || 1;
+        let newValue = Math.min(50, Math.max(1, currentValue + delta));
+
+        quantitySpan.textContent = newValue;
+
+        const newLineTotal = unitPrice * newValue;
+        setMoney(totalPriceEl, newLineTotal);
+
+        updateCartTotals();
+    }
+
+    function updateCartTotals() {
+        let subtotal = 0;
+
+        document.querySelectorAll('.total-price').forEach(el => {
+            subtotal += getNumberFromDataValue(el);
+        });
+
+        const subtotalEl = document.getElementById('cart-subtotal');
+        const totalEl = document.getElementById('cart-total');
+
+        if (subtotalEl) setMoney(subtotalEl, subtotal);
+        if (totalEl) setMoney(totalEl, subtotal); // hiện tại tổng cộng = tạm tính (chưa cộng ship)
+    }
 </script>
+
+
+
+
+
+
+
