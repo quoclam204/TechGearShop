@@ -1,7 +1,138 @@
-﻿
+﻿@model EcommerceMVC.ViewModels.OrderSuccessVM
+
 @{
-    ViewData["Title"] = "Success";
+    ViewData["Title"] = "Thanh toán thành công";
+    var message = TempData["CheckoutSuccess"] as string;
 }
 
-<h1>Success</h1>
+<div class="container-fluid py-5">
+    <div class="container py-5">
+
+        <div class="d-flex align-items-center mb-3">
+            <i class="fa-solid fa-circle-check text-success me-3" style="font-size: 32px;"></i>
+            <div>
+                <h1 class="mb-1">Thanh toán thành công!</h1>
+                <div class="text-muted">Cảm ơn bạn đã đặt hàng.</div>
+            </div>
+        </div>
+
+        @if (!string.IsNullOrWhiteSpace(message))
+        {
+            <div class="alert alert-success" role="alert">
+                @message
+            </div>
+        }
+
+        <div class="row g-4">
+            <!-- Thông tin đơn hàng -->
+            <div class="col-lg-6">
+                <div class="border rounded p-4 h-100">
+                    <h4 class="mb-3">🧾 Thông tin đơn hàng</h4>
+                    <div>Mã đơn: <strong>#DH@Model.MaHd</strong></div>
+                    <div>Ngày đặt: <strong>@Model.NgayDat.ToString("dd/MM/yyyy HH:mm")</strong></div>
+                    <div>Trạng thái: <span class="badge bg-info text-dark">@Model.TrangThai</span></div>
+
+                    <hr />
+
+                    <h5 class="mb-2">💳 Thanh toán</h5>
+                    <div>Phương thức: <strong>@Model.CachThanhToan</strong></div>
+                    <div class="text-muted small">
+                        @(Model.CachThanhToan.Equals("COD", StringComparison.OrdinalIgnoreCase)
+                            ? "Thanh toán khi nhận hàng (COD)"
+                            : "Đã thanh toán (online)")
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thông tin giao hàng -->
+            <div class="col-lg-6">
+                <div class="border rounded p-4 h-100">
+                    <h4 class="mb-3">🚚 Thông tin giao hàng</h4>
+                    <div>Người nhận: <strong>@Model.HoTen</strong></div>
+                    <div>Số điện thoại: <strong>@Model.DienThoai</strong></div>
+                    <div>Địa chỉ: <strong>@Model.DiaChi</strong></div>
+                    <div>Vận chuyển: <strong>@Model.CachVanChuyen</strong></div>
+                </div>
+            </div>
+
+            <!-- Danh sách sản phẩm -->
+            <div class="col-12">
+                <div class="border rounded p-4">
+                    <h4 class="mb-3">📦 Sản phẩm đã mua</h4>
+
+                    <div class="table-responsive">
+                        <table class="table align-middle">
+                            <thead>
+                                <tr>
+                                    <th style="width: 90px;">Ảnh</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th class="text-end">Giá</th>
+                                    <th class="text-center">SL</th>
+                                    <th class="text-end">Tổng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Items)
+                                {
+                                    <tr>
+                                        <td>
+                                            <img src="~/Hinh/HangHoa/@item.Hinh"
+                                                 class="img-fluid rounded-circle"
+                                                 style="width: 70px; height: 70px;"
+                                                 alt="@item.TenHh" />
+                                        </td>
+                                        <td>
+                                            <a asp-controller="HangHoa" asp-action="Detail" asp-route-id="@item.MaHh">
+                                                @item.TenHh
+                                            </a>
+                                        </td>
+                                        <td class="text-end">₫ @item.DonGia.ToString("#,##0")</td>
+                                        <td class="text-center">@item.SoLuong</td>
+                                        <td class="text-end">₫ @item.ThanhTien.ToString("#,##0")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="row justify-content-end">
+                        <div class="col-md-6 col-lg-4">
+                            <div class="border-top pt-3">
+                                <div class="d-flex justify-content-between">
+                                    <span>Tổng tiền hàng</span>
+                                    <strong>₫ @Model.TongTienHang.ToString("#,##0")</strong>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span>Giảm giá</span>
+                                    <strong>₫ @Model.GiamGia.ToString("#,##0")</strong>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span>Phí vận chuyển</span>
+                                    <strong>₫ @Model.PhiVanChuyen.ToString("#,##0")</strong>
+                                </div>
+                                <div class="d-flex justify-content-between mt-2">
+                                    <span class="fs-5">Tổng thanh toán</span>
+                                    <strong class="fs-5 text-primary">₫ @Model.TongThanhToan.ToString("#,##0")</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-wrap gap-2 mt-4">
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary">
+                            🏠 Về trang chủ
+                        </a>
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-primary">
+                            🛒 Tiếp tục mua hàng
+                        </a>
+                        <a asp-controller="Cart" asp-action="Index" class="btn btn-outline-primary">
+                            Xem giỏ hàng
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 

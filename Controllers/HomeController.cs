@@ -169,6 +169,8 @@ namespace EcommerceMVC.Controllers
 
 					await HttpContext.SignInAsync(claimsPrincipal);
 
+					TempData["ToastSuccess"] = $"Đăng nhập thành công. Xin chào {claims.First(c => c.Type == ClaimTypes.Name).Value}!	";
+
 					if (Url.IsLocalUrl(ReturnUrl))
 					{
 						return Redirect(ReturnUrl);

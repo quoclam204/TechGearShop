@@ -5,6 +5,14 @@
 <div class="container-fluid py-5">
 	<div class="container py-5">
 		<h1 class="mb-4">Đăng nhập</h1>
+
+		@if (ViewData.ModelState.TryGetValue("loi", out var loiState) && loiState.Errors.Count > 0)
+		{
+			<div class="alert alert-danger">
+				@loiState.Errors[0].ErrorMessage
+			</div>
+		}
+
 		<form asp-action="DangNhap" asp-route-returnurl="@ViewBag.ReturnUrl">
 			<div class="text-danger" asp-validation-summary="All"></div>
 			<div class="row">

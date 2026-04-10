@@ -149,6 +149,26 @@
 	<!-- Modal Search End -->
 
 	<main class="hero-header flex-grow-1" style="min-height: 400px;">
+		@if (TempData["ToastSuccess"] is string okMsg)
+		{
+			<div class="container mt-3">
+				<div class="alert alert-success alert-dismissible fade show" role="alert">
+					@okMsg
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			</div>
+		}
+
+		@if (TempData["ToastError"] is string errMsg)
+		{
+			<div class="container mt-3">
+				<div class="alert alert-danger alert-dismissible fade show" role="alert">
+					@errMsg
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			</div>
+		}
+
 		@RenderBody()
 	</main>
 

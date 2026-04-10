@@ -3,6 +3,7 @@ using EcommerceMVC.Helpers;
 using EcommerceMVC.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TechGearShop.ViewModels;
 
 namespace EcommerceMVC.Controllers
@@ -111,15 +112,13 @@ namespace EcommerceMVC.Controllers
                     GhiChu = model.GhiChu
                 };
 
-                using (var transaction = db.Database.BeginTransaction()) // ✅ đúng cách
+                using (var transaction = db.Database.BeginTransaction())
                 {
                     try
                     {
-                        // 1. Lưu hóa đơn
                         db.Add(hoaDon);
                         db.SaveChanges();
 
-                        // 2. Lưu chi tiết hóa đơn
                         var cthds = new List<ChiTietHd>();
                         foreach (var item in Cart)
                         {
@@ -136,26 +135,76 @@ namespace EcommerceMVC.Controllers
                         db.AddRange(cthds);
                         db.SaveChanges();
 
-                        // 3. Commit sau cùng
-                        transaction.Commit(); // ✅ đúng chỗ
+                        transaction.Commit();
 
-                        // 4. Xóa giỏ hàng
-                        HttpContext.Session.Set<List<CartItem>>(
-                            MySetting.CART_KEY,
-                            new List<CartItem>()
-                        );
+                        // Xóa giỏ hàng
+                        HttpContext.Session.Set<List<CartItem>>(MySetting.CART_KEY, new List<CartItem>());
 
-                        return View("Success");
+                        // Thông báo hiển thị 1 lần
+                        TempData["CheckoutSuccess"] = "Thanh toán thành công. Cảm ơn bạn đã đặt hàng!";
+
+                        // PRG pattern: redirect sang trang Success + truyền mã hóa đơn
+                        return RedirectToAction(nameof(Success), new { id = hoaDon.MaHd });
                     }
                     catch (Exception)
                     {
-                        transaction.Rollback(); // ✅ rollback nếu lỗi
-                        throw; // nên throw để debug
+                        transaction.Rollback();
+                        throw;
                     }
                 }
             }
 
             return View(Cart);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult Success(int id)
+        {
+            var customerId = HttpContext.User.Claims
+                .SingleOrDefault(x => x.Type == MySetting.CLAIM_CUSTOMERID)?.Value;
+
+            var hoaDon = db.HoaDons
+                .Include(x => x.MaTrangThaiNavigation)
+                .Include(x => x.ChiTietHds)
+                    .ThenInclude(ct => ct.MaHhNavigation)
+                .SingleOrDefault(x => x.MaHd == id && x.MaKh == customerId);
+
+            if (hoaDon == null)
+            {
+                TempData["ToastError"] = "Không tìm thấy đơn hàng hoặc bạn không có quyền xem đơn này.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            var vm = new OrderSuccessVM
+            {
+                MaHd = hoaDon.MaHd,
+                NgayDat = hoaDon.NgayDat,
+                TrangThai = hoaDon.MaTrangThaiNavigation?.TenTrangThai ?? "Đang xử lý",
+
+                HoTen = hoaDon.HoTen ?? "",
+                DienThoai = hoaDon.MaKhNavigation?.DienThoai ?? "", // nếu KhachHang có field này
+                DiaChi = hoaDon.DiaChi,
+
+                CachVanChuyen = hoaDon.CachVanChuyen,
+                CachThanhToan = hoaDon.CachThanhToan,
+
+                PhiVanChuyen = hoaDon.PhiVanChuyen,
+                GiamGia = 0,
+
+                Items = hoaDon.ChiTietHds.Select(ct => new OrderSuccessItemVM
+                {
+                    MaHh = ct.MaHh,
+                    TenHh = ct.MaHhNavigation?.TenHh ?? $"SP #{ct.MaHh}",
+                    Hinh = ct.MaHhNavigation?.Hinh ?? "",
+                    DonGia = ct.DonGia,
+                    SoLuong = ct.SoLuong
+                }).ToList()
+            };
+
+            vm.TongTienHang = vm.Items.Sum(x => x.ThanhTien);
+
+            return View(vm);
         }
     }
 }
