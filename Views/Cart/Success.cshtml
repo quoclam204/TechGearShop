@@ -5,36 +5,135 @@
     var message = TempData["CheckoutSuccess"] as string;
 }
 
+@section Styles {
+    <style>
+        .success-hero {
+            background: linear-gradient(135deg, rgba(13,110,253,.12), rgba(13,110,253,.03));
+            border: 1px solid rgba(13,110,253,.15);
+        }
+
+        .success-icon {
+            width: 56px;
+            height: 56px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            background: rgba(13,110,253,.12);
+            border: 1px solid rgba(13,110,253,.18);
+            color: var(--bs-primary);
+            flex: 0 0 auto;
+        }
+
+        .success-card {
+            border: 1px solid rgba(0,0,0,.08) !important;
+            box-shadow: 0 .125rem .35rem rgba(0,0,0,.05);
+        }
+
+        .success-table thead th {
+            color: #6c757d;
+            font-weight: 600;
+            border-bottom-color: rgba(0,0,0,.08);
+        }
+
+        .success-table a {
+            color: var(--bs-primary);
+            text-decoration: none;
+        }
+
+        .success-table a:hover {
+            text-decoration: underline;
+        }
+
+        /* Buttons theo đúng theme (primary = #2B3035 trong style.css) */
+        .success-actions .btn {
+            border-radius: 999px;
+            padding: .6rem 1.25rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+        }
+
+        .success-btn-primary {
+            background-color: var(--bs-primary) !important;
+            border-color: var(--bs-primary) !important;
+            color: var(--bs-white) !important;
+        }
+
+        .success-btn-primary:hover {
+            background-color: #1a1d20 !important;
+            border-color: #1a1d20 !important;
+            color: var(--bs-white) !important;
+        }
+
+        .success-btn-outline {
+            background-color: transparent !important;
+            border: 1px solid var(--bs-secondary) !important;
+            color: var(--bs-primary) !important;
+        }
+
+        .success-btn-outline:hover {
+            background-color: rgba(43, 48, 53, .08) !important;
+            border-color: var(--bs-primary) !important;
+            color: var(--bs-primary) !important;
+        }
+
+        .success-btn-primary i { color: var(--bs-white) !important; }
+        .success-btn-outline i { color: var(--bs-primary) !important; }
+    </style>
+}
+
 <div class="container-fluid py-5">
     <div class="container py-5">
 
-        <div class="d-flex align-items-center mb-3">
-            <i class="fa-solid fa-circle-check text-success me-3" style="font-size: 32px;"></i>
-            <div>
-                <h1 class="mb-1">Thanh toán thành công!</h1>
-                <div class="text-muted">Cảm ơn bạn đã đặt hàng.</div>
+        <!-- Header -->
+        <div class="success-hero rounded-3 p-4 p-md-5 mb-4">
+            <div class="d-flex align-items-start gap-3">
+                <div class="success-icon">
+                    <i class="fa-solid fa-circle-check" style="font-size: 28px;"></i>
+                </div>
+
+                <div class="flex-grow-1">
+                    <h1 class="mb-1 text-dark">Thanh toán thành công</h1>
+                    <div class="text-muted">Cảm ơn bạn đã đặt hàng tại TechGearShop.</div>
+
+                    @if (!string.IsNullOrWhiteSpace(message))
+                    {
+                        <div class="alert alert-primary mt-3 mb-0" role="alert">
+                            @message
+                        </div>
+                    }
+                </div>
             </div>
         </div>
-
-        @if (!string.IsNullOrWhiteSpace(message))
-        {
-            <div class="alert alert-success" role="alert">
-                @message
-            </div>
-        }
 
         <div class="row g-4">
             <!-- Thông tin đơn hàng -->
             <div class="col-lg-6">
-                <div class="border rounded p-4 h-100">
-                    <h4 class="mb-3">🧾 Thông tin đơn hàng</h4>
-                    <div>Mã đơn: <strong>#DH@Model.MaHd</strong></div>
-                    <div>Ngày đặt: <strong>@Model.NgayDat.ToString("dd/MM/yyyy HH:mm")</strong></div>
-                    <div>Trạng thái: <span class="badge bg-info text-dark">@Model.TrangThai</span></div>
+                <div class="bg-white rounded-3 p-4 h-100 success-card">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h4 class="mb-0 text-dark">
+                            <i class="fa-solid fa-receipt text-primary me-2"></i>
+                            Thông tin đơn hàng
+                        </h4>
+                        <span class="badge rounded-pill bg-primary-subtle text-primary border border-primary-subtle">
+                            @Model.TrangThai
+                        </span>
+                    </div>
 
-                    <hr />
+                    <div class="text-muted small mb-2">Mã đơn</div>
+                    <div class="fw-semibold mb-3">#DH@Model.MaHd</div>
 
-                    <h5 class="mb-2">💳 Thanh toán</h5>
+                    <div class="text-muted small mb-2">Ngày đặt</div>
+                    <div class="fw-semibold mb-3">@Model.NgayDat.ToString("dd/MM/yyyy HH:mm")</div>
+
+                    <hr class="my-3" />
+
+                    <h5 class="mb-2 text-dark">
+                        <i class="fa-solid fa-credit-card text-primary me-2"></i>
+                        Thanh toán
+                    </h5>
                     <div>Phương thức: <strong>@Model.CachThanhToan</strong></div>
                     <div class="text-muted small">
                         @(Model.CachThanhToan.Equals("COD", StringComparison.OrdinalIgnoreCase)
@@ -46,22 +145,45 @@
 
             <!-- Thông tin giao hàng -->
             <div class="col-lg-6">
-                <div class="border rounded p-4 h-100">
-                    <h4 class="mb-3">🚚 Thông tin giao hàng</h4>
-                    <div>Người nhận: <strong>@Model.HoTen</strong></div>
-                    <div>Số điện thoại: <strong>@Model.DienThoai</strong></div>
-                    <div>Địa chỉ: <strong>@Model.DiaChi</strong></div>
-                    <div>Vận chuyển: <strong>@Model.CachVanChuyen</strong></div>
+                <div class="bg-white rounded-3 p-4 h-100 success-card">
+                    <h4 class="mb-3 text-dark">
+                        <i class="fa-solid fa-truck text-primary me-2"></i>
+                        Thông tin giao hàng
+                    </h4>
+
+                    <div class="row g-2">
+                        <div class="col-12">
+                            <div class="text-muted small">Người nhận</div>
+                            <div class="fw-semibold">@Model.HoTen</div>
+                        </div>
+                        <div class="col-12">
+                            <div class="text-muted small">Số điện thoại</div>
+                            <div class="fw-semibold">@Model.DienThoai</div>
+                        </div>
+                        <div class="col-12">
+                            <div class="text-muted small">Địa chỉ</div>
+                            <div class="fw-semibold">@Model.DiaChi</div>
+                        </div>
+                        <div class="col-12">
+                            <div class="text-muted small">Vận chuyển</div>
+                            <div class="fw-semibold">@Model.CachVanChuyen</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Danh sách sản phẩm -->
             <div class="col-12">
-                <div class="border rounded p-4">
-                    <h4 class="mb-3">📦 Sản phẩm đã mua</h4>
+                <div class="bg-white rounded-3 p-4 success-card">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h4 class="mb-0 text-dark">
+                            <i class="fa-solid fa-box-open text-primary me-2"></i>
+                            Sản phẩm đã mua
+                        </h4>
+                    </div>
 
                     <div class="table-responsive">
-                        <table class="table align-middle">
+                        <table class="table align-middle success-table">
                             <thead>
                                 <tr>
                                     <th style="width: 90px;">Ảnh</th>
@@ -77,7 +199,7 @@
                                     <tr>
                                         <td>
                                             <img src="~/Hinh/HangHoa/@item.Hinh"
-                                                 class="img-fluid rounded-circle"
+                                                 class="img-fluid rounded-circle border"
                                                  style="width: 70px; height: 70px;"
                                                  alt="@item.TenHh" />
                                         </td>
@@ -88,7 +210,7 @@
                                         </td>
                                         <td class="text-end">₫ @item.DonGia.ToString("#,##0")</td>
                                         <td class="text-center">@item.SoLuong</td>
-                                        <td class="text-end">₫ @item.ThanhTien.ToString("#,##0")</td>
+                                        <td class="text-end fw-semibold">₫ @item.ThanhTien.ToString("#,##0")</td>
                                     </tr>
                                 }
                             </tbody>
@@ -96,37 +218,40 @@
                     </div>
 
                     <div class="row justify-content-end">
-                        <div class="col-md-6 col-lg-4">
+                        <div class="col-md-7 col-lg-5 col-xl-4">
                             <div class="border-top pt-3">
                                 <div class="d-flex justify-content-between">
-                                    <span>Tổng tiền hàng</span>
+                                    <span class="text-muted">Tổng tiền hàng</span>
                                     <strong>₫ @Model.TongTienHang.ToString("#,##0")</strong>
                                 </div>
                                 <div class="d-flex justify-content-between">
-                                    <span>Giảm giá</span>
+                                    <span class="text-muted">Giảm giá</span>
                                     <strong>₫ @Model.GiamGia.ToString("#,##0")</strong>
                                 </div>
                                 <div class="d-flex justify-content-between">
-                                    <span>Phí vận chuyển</span>
+                                    <span class="text-muted">Phí vận chuyển</span>
                                     <strong>₫ @Model.PhiVanChuyen.ToString("#,##0")</strong>
                                 </div>
-                                <div class="d-flex justify-content-between mt-2">
-                                    <span class="fs-5">Tổng thanh toán</span>
+
+                                <div class="d-flex justify-content-between mt-2 pt-2 border-top">
+                                    <span class="fs-5 fw-semibold">Tổng thanh toán</span>
                                     <strong class="fs-5 text-primary">₫ @Model.TongThanhToan.ToString("#,##0")</strong>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="d-flex flex-wrap gap-2 mt-4">
-                        <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary">
-                            🏠 Về trang chủ
+                    <div class="d-flex flex-wrap gap-3 mt-4 success-actions">
+                        <a asp-controller="Home" asp-action="Index" class="btn success-btn-outline">
+                            <i class="fa-solid fa-house"></i> Về trang chủ
                         </a>
-                        <a asp-controller="Home" asp-action="Index" class="btn btn-primary">
-                            🛒 Tiếp tục mua hàng
+
+                        <a asp-controller="Home" asp-action="Index" class="btn success-btn-primary">
+                            <i class="fa-solid fa-cart-shopping"></i> Tiếp tục mua hàng
                         </a>
-                        <a asp-controller="Cart" asp-action="Index" class="btn btn-outline-primary">
-                            Xem giỏ hàng
+
+                        <a asp-controller="Cart" asp-action="Index" class="btn success-btn-outline">
+                            <i class="fa-solid fa-bag-shopping"></i> Xem giỏ hàng
                         </a>
                     </div>
                 </div>
@@ -135,4 +260,25 @@
 
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
