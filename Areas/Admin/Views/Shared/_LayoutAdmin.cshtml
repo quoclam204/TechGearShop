@@ -42,8 +42,13 @@
         <!-- partial:../../partials/_navbar.html -->
         <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                <a class="navbar-brand brand-logo" href="../../index.html"><img src="~/LayoutAdmin/assets/images/logo.svg" alt="logo" /></a>
-                <a class="navbar-brand " href="../../index.html"><h2 class="text-primary display-6">Đặc Sản Đà Lạt</h2></a>
+                <a class="navbar-brand brand-logo" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/LayoutAdmin/assets/images/logo.svg" alt="logo" />
+                </a>
+
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="text-decoration:none;">
+                    <h2 class="display-6" style="color:#2B3035; margin:0;">TechGearShop</h2>
+                </a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-stretch">
                 <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -94,14 +99,14 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="Home" asp-action="Index">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
                             <span class="menu-title">Quay lại trang bán hàng</span>
                             <i class="mdi mdi-home menu-icon"></i>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                            <span class="menu-title">Quản lý đặc sản</span>
+                            <span class="menu-title">Quản lý sản phẩm</span>
                             <i class="menu-arrow"></i>
                             <i class="mdi mdi-food-apple-outline menu-icon"></i>
                         </a>
@@ -111,6 +116,14 @@
                                @*  <li class="nav-item"> <a class="nav-link" href="../../pages/ui-features/typography.html">Typography</a></li> *@
                             </ul>
                         </div>
+                    </li>
+
+                    <!-- NEW: quản lý nội dung footer -->
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="Admin" asp-controller="SitePagesAdmin" asp-action="Edit">
+                            <span class="menu-title">Nội dung Footer</span>
+                            <i class="mdi mdi-file-document-edit-outline menu-icon"></i>
+                        </a>
                     </li>
                 </ul>
             </nav>
@@ -123,7 +136,7 @@
                 <!-- partial:../../partials/_footer.html -->
                 <footer class="footer">
                     <div class="container-fluid d-flex justify-content-between">
-                        <span class="text-muted d-block text-center text-sm-start d-sm-inline-block">Nguyễn Văn Trường , Nguyễn Lê Quốc Lâm</span>
+                        <span class="text-muted d-block text-center text-sm-start d-sm-inline-block">Nguyễn Lê Quốc Lâm, Nguyễn Văn Trường, Đặng Nguyễn Phúc Khang </span>
                         <span class="float-none float-sm-end mt-1 mt-sm-0 text-end"> 2024 <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin template</a> from Bootstrapdash.com</span>
                     </div>
                 </footer>
@@ -146,6 +159,8 @@
     <!-- endinject -->
     <!-- Custom js for this page -->
     <!-- End custom js for this page -->
+
+    @RenderSection("Scripts", required: false)
 </body>
 
 </html>

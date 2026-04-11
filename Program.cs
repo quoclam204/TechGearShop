@@ -51,31 +51,24 @@ app.UseSession();
 
 
 app.UseAuthentication();
-
 app.UseAuthorization();
 
-// ✅ Route tùy chỉnh cho Detail - PHẢI ĐẶT TRƯỚC route mặc định
+// ✅ Route tùy chỉnh cho Detail
 app.MapControllerRoute(
 	name: "productDetail",
 	pattern: "Detail/{id:int}",
 	defaults: new { controller = "HangHoa", action = "Detail" }
 );
 
+// ✅ Area route (PHẢI có {area:exists})
+app.MapControllerRoute(
+	name: "areas",
+	pattern: "{area:exists}/{controller=HomeAdmin}/{action=Index}/{id?}"
+);
+
+// ✅ Default route
 app.MapControllerRoute(
 	name: "default",
 	pattern: "{controller=Home}/{action=Index}/{id?}");
-
-app.UseEndpoints(endpoints =>
-{
-	//endpoints.MapControllerRoute(
-	//    name: "areas",
-	//    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-	//);
-
-	endpoints.MapControllerRoute(
-		name: "areas",
-		pattern: "{controller=LoginController}/{action=Index}/{id?}"
-	);
-});
 
 app.Run();

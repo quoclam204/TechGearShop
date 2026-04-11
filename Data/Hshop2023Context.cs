@@ -54,6 +54,8 @@ public partial class Hshop2023Context : DbContext
 
 	public virtual DbSet<YeuThich> YeuThiches { get; set; }
 
+	public virtual DbSet<SitePage> SitePages { get; set; }
+
 	//    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 	//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
 	//        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-O55DBNF\\SQLEXPRESS01;Initial Catalog=Hshop2023;Integrated Security=True;Trust Server Certificate=True");
@@ -473,6 +475,17 @@ public partial class Hshop2023Context : DbContext
 		{
 			// Specify the key for IdentityUserToken
 			entity.HasKey(t => new { t.UserId, t.LoginProvider, t.Name });
+		});
+
+		modelBuilder.Entity<SitePage>(entity =>
+		{
+			entity.ToTable("SitePages");
+			entity.HasIndex(x => x.Slug).IsUnique();
+
+			entity.Property(x => x.Slug).HasMaxLength(50).IsRequired();
+			entity.Property(x => x.Title).HasMaxLength(200).IsRequired();
+			entity.Property(x => x.ContentHtml).HasColumnType("nvarchar(max)");
+			entity.Property(x => x.UpdatedAtUtc).HasColumnType("datetime2");
 		});
 
 		OnModelCreatingPartial(modelBuilder);

@@ -1,0 +1,15 @@
+@model EcommerceMVC.Data.SitePage
+@{
+    ViewData["Title"] = Model.Title;
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+<div class="container-fluid page-header py-5"></div>
+
+<div class="container py-5">
+    <h1 class="mb-4">@Model.Title</h1>
+
+    <div class="bg-white p-4 rounded border">
+        @Html.Raw(Model.ContentHtml ?? "")
+    </div>
+</div>

@@ -1,0 +1,66 @@
+﻿@model EcommerceMVC.ViewModels.Admin.SitePagesEditVM
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Nội dung Footer";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container mt-4">
+    <h3 class="mb-3">Nội dung các trang Footer</h3>
+
+    <form asp-area="Admin" asp-controller="SitePagesAdmin" asp-action="Edit" method="post" class="card p-3">
+        @Html.AntiForgeryToken()
+
+        <div class="mb-3">
+            <label asp-for="GioiThieuDoanhNghiepHtml" class="form-label"></label>
+            <textarea asp-for="GioiThieuDoanhNghiepHtml" class="form-control" rows="6"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="VeChungToiHtml" class="form-label"></label>
+            <textarea asp-for="VeChungToiHtml" class="form-control" rows="6"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="TuyenDungHtml" class="form-label"></label>
+            <textarea asp-for="TuyenDungHtml" class="form-control" rows="6"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="HoTroKhachHangHtml" class="form-label"></label>
+            <textarea asp-for="HoTroKhachHangHtml" class="form-control" rows="6"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="LienHeHtml" class="form-label"></label>
+            <textarea asp-for="LienHeHtml" class="form-control" rows="6"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Lưu</button>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+    <script>
+        (function () {
+            const ids = [
+                'GioiThieuDoanhNghiepHtml',
+                'VeChungToiHtml',
+                'TuyenDungHtml',
+                'HoTroKhachHangHtml',
+                'LienHeHtml'
+            ];
+
+            ids.forEach(function (id) {
+                if (document.getElementById(id)) {
+                    CKEDITOR.replace(id, { versionCheck: false });
+                }
+            });
+        })();
+    </script>
+}
